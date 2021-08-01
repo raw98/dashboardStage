@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-
+ @Output() mode :EventEmitter<any> = new EventEmitter<any>();
   constructor() { }
 
   ngOnInit(): void {
+  }
+  changeMode(){
+    this.mode.emit();
   }
 
 }

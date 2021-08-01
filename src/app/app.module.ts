@@ -11,7 +11,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidebarComponent } from './sidebar/sidebar.component'
 import  {MatSidenavModule} from '@angular/material/sidenav'
 import  {MatIconModule} from '@angular/material/icon'
-
+import { MatCardModule } from '@angular/material/card'
+import {MatDividerModule} from '@angular/material/divider'
+import {MatListModule} from '@angular/material/list'
+import { HighchartsChartModule } from 'highcharts-angular';
 const routes : Routes=[
   {path: '' , component:Page1Component},
   {path: 'page1' , component:Page1Component},
@@ -35,7 +38,11 @@ const routes : Routes=[
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
     MatSidenavModule,
-    MatIconModule
+    MatIconModule,
+    MatDividerModule,
+    MatCardModule,
+    MatListModule,
+    HighchartsChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]
