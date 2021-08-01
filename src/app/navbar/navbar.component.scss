@@ -1,0 +1,70 @@
+.navbar{
+    height: 60px;
+}
+.nav-link{
+    margin-left: 35px;
+}
+.text-end button{
+    margin-right: 13px;
+}
+.bi-search{
+    color: whitesmoke;
+    font-size: 17px;
+}
+.bi-search:hover{
+    color: violet;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.bi-cart2{ 
+font-size: 33px;
+color: whitesmoke;
+margin-right: 15px;
+transform: 2s ease;
+}
+.bi-cart2:hover{
+    
+    color: violet;
+    margin-right: 15px;
+    cursor:pointer;
+    }
+    .bi-cart2::before{
+        margin-top: 9px;
+        font-size: 29px;
+    }
+    .cart_value{
+        position: absolute;
+        background: whitesmoke;
+        text-align: center;
+        border:1px solid whitesmoke;
+        border-radius: 50px;
+        width: 23px;
+        margin-top: -47px;
+        right: 290px;
+    }
+
+#logo{
+    height: 45px;
+    margin-top: -15px;
+    margin-right: 7.5px;
+}
+
+.navbar-dark .navbar-brand
+{
+color: whitesmoke;
+    margin-top: 5px;
+    margin-left: -15px;
+font-size: 15px;
+}
+.navbar-dark .navbar-brand span{
+    color: #e0a800;
+}
+
+#menuButton{
+    background-color: #343a40;
+    color: #e0a800;
+    padding: 0px; 
+    border: none;
+    margin-top: 10px;
+}
