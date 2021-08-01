@@ -1,8 +1,31 @@
 <div class="chart1">
-<highcharts-chart 
-  [Highcharts]="Highcharts"
-  [options]="chartOptions"
-  style="width: 85%; height: 350px; display: block;"
-></highcharts-chart>
+    <div class="row">
+        <div class="col">
+            <mat-card >
+                <app-chart1  [text]="text1"></app-chart1>
+                </mat-card> 
+            </div>
+            <div class="col">
+                <mat-card >
+                    <app-chart1 [color]="myColor2" [text]="text2"></app-chart1>
+                    </mat-card> 
+                </div>
+                <div class="col">
+                    <mat-card>
+                        <app-chart1 [color]="myColor3" [text]="text3"></app-chart1>
+                        </mat-card> 
+                    </div> 
+    </div>
 </div>
+<br>
 <mat-divider></mat-divider>
+<br>
+<div class="chart2">
+<app-chart2></app-chart2>
+</div>
+<br>
+<mat-divider></mat-divider>
+<br>
+<div class="chart3">
+<app-chart3></app-chart3>
+</div>

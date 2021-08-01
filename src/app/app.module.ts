@@ -15,6 +15,10 @@ import { MatCardModule } from '@angular/material/card'
 import {MatDividerModule} from '@angular/material/divider'
 import {MatListModule} from '@angular/material/list'
 import { HighchartsChartModule } from 'highcharts-angular';
+import { Chart1Component } from './chart1/chart1.component';
+import { Chart2Component } from './chart2/chart2.component';
+import { Chart3Component } from './chart3/chart3.component';
+import { Chart4Component } from './chart4/chart4.component';
 const routes : Routes=[
   {path: '' , component:Page1Component},
   {path: 'page1' , component:Page1Component},
@@ -31,7 +35,11 @@ const routes : Routes=[
     Page1Component,
     Page2Component,
     NotfoundComponent,
-    SidebarComponent
+    SidebarComponent,
+    Chart1Component,
+    Chart2Component,
+    Chart3Component,
+    Chart4Component
   ],
   imports: [
     BrowserModule,
