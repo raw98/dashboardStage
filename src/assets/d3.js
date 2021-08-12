@@ -41,7 +41,7 @@ d3.queue()
 svg.append("rect")
   .attr("class", "background")
 	.attr("width", width)
-	.attr("height", height)
+	.attr("height", "0")
 	.on("click", click);
 
 
@@ -114,7 +114,7 @@ function ready(error, topo) {
 		.style("opacity", 1)
 		.on("mouseover", mouseOver)
 		.on("mouseleave", mouseLeave)
-		.on("click", click);
+		//.on("click", click);
   
 	// Legend
 	const x = d3.scaleLinear()
@@ -164,12 +164,13 @@ function ready(error, topo) {
 }
 
 // Zoom functionality
+
 function click(d) {
   var x, y, k;
 
   if (d && centered !== d) {
     var centroid = path.centroid(d);
-    x = -(centroid[0] * 6);
+    x = (centroid[0] * 6);
     y = (centroid[1] * 6);
     k = 3;
     centered = d;
@@ -186,6 +187,6 @@ function click(d) {
   world.transition()
       .duration(750)
       .attr("transform", "translate(" + x + "," + y + ") scale(" + k + ")" );
-  
+
 }
 }
