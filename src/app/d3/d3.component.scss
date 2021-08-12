@@ -37,9 +37,12 @@ div.tooltip {
 }  
 
 .background {
-  color: #fff;
+  background-color: #fff !important;
   fill: transparent;
   pointer-evens: all;
+}
+rect.background{
+  width: 0px;
 }
 
 .world {

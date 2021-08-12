@@ -4,6 +4,7 @@ function d33(){
 
 // initial setup
 const svg = d3.select("svg"),
+
 	width = svg.attr("width"),
 	height = svg.attr("height"),
 	path = d3.geoPath(),
