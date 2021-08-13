@@ -6,7 +6,7 @@ function d33(){
 const svg = d3.select("svg"),
 
 	width = svg.attr("width"),
-	height = svg.attr("height"),
+	height = svg.attr("heSight"),
 	path = d3.geoPath(),
 	data = d3.map(),
 	worldmap = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson",
