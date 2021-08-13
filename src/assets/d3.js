@@ -158,7 +158,7 @@ function ready(error, topo) {
 			return d[0] / 1000000 + " m - " + d[1] / 1000000 + " m";
 		});
 
-	legend.append("text").attr("x", 15).attr("y", 280).text("Population (Million)");
+	legend.append("text").attr("x", 15).attr("y", 280).text("vente (Million £)");
 }
 
 // Zoom functionality
