@@ -1,12 +1,10 @@
 
 function d33(){
 
-
 // initial setup
 const svg = d3.select("svg"),
-
 	width = svg.attr("width"),
-	height = svg.attr("heSight"),
+	height = svg.attr("height"),
 	path = d3.geoPath(),
 	data = d3.map(),
 	worldmap = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson",
@@ -40,8 +38,8 @@ d3.queue()
 // Add clickable background
 svg.append("rect")
   .attr("class", "background")
-	.attr("width", width)
-	.attr("height", "0")
+	.attr("width", "0")
+	.attr("height", height)
 	.on("click", click);
 
 
@@ -113,7 +111,7 @@ function ready(error, topo) {
 		})
 		.style("opacity", 1)
 		.on("mouseover", mouseOver)
-		.on("mouseleave", mouseLeave)
+		.on("mouseleave", mouseLeave);
 		//.on("click", click);
   
 	// Legend
@@ -164,13 +162,12 @@ function ready(error, topo) {
 }
 
 // Zoom functionality
-
 function click(d) {
   var x, y, k;
 
   if (d && centered !== d) {
     var centroid = path.centroid(d);
-    x = (centroid[0] * 6);
+    x = -(centroid[0] * 6);
     y = (centroid[1] * 6);
     k = 3;
     centered = d;
@@ -187,6 +184,6 @@ function click(d) {
   world.transition()
       .duration(750)
       .attr("transform", "translate(" + x + "," + y + ") scale(" + k + ")" );
-
+  
 }
 }
