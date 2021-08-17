@@ -20,6 +20,7 @@ import { Chart2Component } from './chart2/chart2.component';
 import { Chart3Component } from './chart3/chart3.component';
 import { Chart4Component } from './chart4/chart4.component';
 import { D3Component } from './d3/d3.component';
+import { PiechartComponent } from './piechart/piechart.component';
 const routes : Routes=[
   {path: '' , component:Page1Component},
   {path: 'page1' , component:Page1Component},
@@ -41,7 +42,8 @@ const routes : Routes=[
     Chart2Component,
     Chart3Component,
     Chart4Component,
-    D3Component
+    D3Component,
+    PiechartComponent
   ],
   imports: [
     BrowserModule,
