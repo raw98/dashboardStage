@@ -36,7 +36,6 @@
             ],
             "scripts": [
               "src/assets/d3.js"
-
             ]
           },
           "configurations": {
@@ -112,5 +111,8 @@
       }
     }
   },
-  "defaultProject": "dashboardStage"
+  "defaultProject": "dashboardStage",
+  "cli": {
+    "defaultCollection": "@nativescript/schematics"
+  }
 }
