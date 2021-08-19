@@ -7,7 +7,7 @@ import * as Highcharts from 'highcharts';
   styleUrls: ['./chart2.component.scss']
 })
 export class Chart2Component implements OnInit {
-
+selected= "prod1"
   Highcharts = Highcharts;
   chartOptions:{}={};
   
@@ -19,10 +19,10 @@ export class Chart2Component implements OnInit {
             type: 'area',
         },
         title: {
-            text: 'Historique et estimation des ventets par an par continent '
+            text: 'vente par semaine '
         },
         xAxis: {
-            categories: ['1750', '1800', '1850', '1900', '1950', '1999', '2050'],
+            categories: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
             tickmarkPlacement: 'on',
             title: {
                 enabled: false
@@ -65,5 +65,7 @@ export class Chart2Component implements OnInit {
             name: 'Oceania',
             data: [2, 2, 2, 6, 13, 30, 46]
         }]}}
+changeYear(event : any){
 
+}
 }

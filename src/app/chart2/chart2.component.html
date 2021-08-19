@@ -1,5 +1,21 @@
-<highcharts-chart  class="shadow"
-  [Highcharts]="Highcharts"
-  [options]="chartOptions"
-  style="width: 82%; height: 300px; display: block;"
-></highcharts-chart>
+
+    <highcharts-chart
+    [Highcharts]="Highcharts"
+    [options]="chartOptions"
+    style="height: 300px; display: block;"
+  >
+  
+</highcharts-chart>
+
+<div class="mt-3 justify-content-center d-flex">
+    <mat-form-field>
+        <mat-label>Select a product</mat-label>
+        <mat-select [(value)]="selected" (selectionChange)="changeYear($event)">
+          <mat-option value="prod1">prod1</mat-option>
+          <mat-option value="prod2">prod2</mat-option>
+          <mat-option value="prod3">prod3</mat-option>
+          <mat-option value="prod4">prod4</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
