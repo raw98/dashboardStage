@@ -7,9 +7,9 @@ import * as Highcharts from 'highcharts';
   styleUrls: ['./chart2.component.scss']
 })
 export class Chart2Component implements OnInit {
-
-  Highcharts = Highcharts;
-  chartOptions:{}={};
+    selected ="prod1"
+    Highcharts = Highcharts;
+    chartOptions:{}={};
   
     constructor() { }
   

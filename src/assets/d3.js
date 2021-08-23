@@ -24,9 +24,11 @@ const colorScale = d3.scaleThreshold()
 
 // add tooltip
 const tooltip = d3.select("body").append("div")
-	.attr("class", "tooltip")
-	.style("opacity", 0);
-
+		.attr("class", "tooltip")
+		.style("background-color", "white")
+		.style("padding-right", "10px")
+		.style("padding-left", "10px")
+		.style("opacity", 0);
 // Load external data and boot
 d3.queue()
 	.defer(d3.json, worldmap)
