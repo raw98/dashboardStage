@@ -1,15 +1,33 @@
-
-  @media only screen and (max-width: 768px) {
+/*@media only screen and (max-width: 768px) {
    
     .highcharts-figure, .highcharts-data-table table {
         width: 65vw; 
-       /* max-width: 400px;*/
+      
         margin: 1em auto;
     }
     #container2{
         width: 70vw ;
-      }
-      }
+    }
+}
+@media only screen and (min-width: 769px) {
+   
+    .highcharts-figure, .highcharts-data-table table {
+        width: 65vw; 
+       
+        margin: 1em auto;
+    }
+    #container2{
+        width: 70vw ;
+    }
+}*/
+.highcharts-figure, .highcharts-data-table table {
+    width: 65vw; 
+   /* max-width: 400px;*/
+    margin: 1em auto;
+}
+#container2{
+    width: 70vw ;
+}
 .highcharts-data-table table {
 	font-family: Verdana, sans-serif;
 	border-collapse: collapse;
