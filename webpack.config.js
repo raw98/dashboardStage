@@ -33,7 +33,7 @@ module.exports = env => {
     "@nativescript/core/ui/frame", "@nativescript/core/ui/frame/activity"
   ];
 
-  const platform = env && ((env.android && 'android') || (env.ios && 'ios'));
+  const platform = env && ((env.android && 'android') || (env.ios && 'ios')) || 'android';
   if (!platform) {
     throw new Error('You need to provide a target platform!');
   }
