@@ -1,4 +1,4 @@
-<div class="chart1">
+<div class="chart">
     <div [ngClass]="{'row': true , 'open': open , 'closed' : !open}">
         <div class="col-12 col-lg-4 my-3 ">
             <mat-card class="shadow">
@@ -21,7 +21,7 @@
 <mat-divider></mat-divider>
 <br>
 
-<div class="chart1">
+<div class="chart">
     <div [ngClass]="{'row': true , 'open': open , 'closed' : !open}">
         <div class="col-12">
             <mat-card class="shadow">
@@ -33,11 +33,16 @@
 
 <br>  
 <mat-divider></mat-divider>
-<br><!--carte-->
-
-<div class="chart3 mx-1 my-3">
-    <app-d3></app-d3>
-</div><!--end carte-->
+<br>
+<!--carte-->
+<div class="chart">
+    <div [ngClass]="{'row': true , 'closed' : !open}">
+        <div class="col-12">
+    <app-d3 [isOpen]="!open"></app-d3>
+</div>
+</div>
+</div>
+<!--end carte-->
 <br>
 <mat-divider></mat-divider>
 <br>
