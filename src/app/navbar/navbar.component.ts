@@ -6,13 +6,15 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
- @Output() mode :EventEmitter<any> = new EventEmitter<any>();
+ @Output() mode = new EventEmitter<string>();
+  value:string="click";
   constructor() { }
 
   ngOnInit(): void {
+  
   }
-  changeMode(){
-    this.mode.emit();
+  changeMode(value:string){
+    this.mode.emit(value);
   }
 
 }

@@ -9,7 +9,7 @@ export class AppComponent {
   title = 'dashboardStage';
   test:boolean=true;
   
-  changeModeNav(){
+  changeModeNav(value:string){
     this.test=!this.test;
   }
 }

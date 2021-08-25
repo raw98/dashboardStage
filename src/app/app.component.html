@@ -1,4 +1,4 @@
-<app-navbar ></app-navbar>
+<app-navbar (mode)="changeModeNav($event)" ></app-navbar>
 <mat-drawer-container>
     <mat-drawer mode="side" open [opened]="test" >
        <app-sidebar></app-sidebar>
