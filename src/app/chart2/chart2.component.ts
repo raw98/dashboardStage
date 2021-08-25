@@ -23,7 +23,7 @@ export class Chart2Component implements OnInit {
       }
     viewData(prod : string){
         this.chart2Service.getData(this.prod).subscribe(d => {
-            console.log(JSON.stringify(d));
+            
             let asiaContinent :Map<string, number>= new Map<string, number>([["Lun", 0],["Mar", 0],["Mer", 0],["Jeu", 0],["Ven", 0],["Sam", 0],["Dim", 0]])
             let africaContinent = new Map<string, number>([["Lun", 0],["Mar", 0],["Mer", 0],["Jeu", 0],["Ven", 0],["Sam", 0],["Dim", 0]])
             let europeContinent = new Map<string, number>([["Lun", 0],["Mar", 0],["Mer", 0],["Jeu", 0],["Ven", 0],["Sam", 0],["Dim", 0]])
@@ -66,7 +66,7 @@ export class Chart2Component implements OnInit {
             let oceania: number[] = []
 
             this.categories.forEach(e => {
-                console.log("e : "+ e)
+                
                 if (asiaContinent.get(e) !== -1){
                     asia.push(asiaContinent.get(e)!);
                 }
@@ -84,11 +84,7 @@ export class Chart2Component implements OnInit {
                 }
             })
             console.log("asia : "+asia)
-           /* asia = [502, 635, 809, 947, 1402, 3634, 5268]
-           africa = [106, 107, 111, 133, 221, 767, 1766]
-            europe = [163, 203, 276, 408, 547, 729, 628]
-            america =  [18, 31, 54, 156, 339, 818, 1201]
-            oceania = [2, 2, 2, 6, 13, 30, 46]*/
+           
             this.chartOptions={
                 chart: {
                     type: 'area',
