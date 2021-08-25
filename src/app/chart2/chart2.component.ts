@@ -67,12 +67,21 @@ export class Chart2Component implements OnInit {
 
             this.categories.forEach(e => {
                 console.log("e : "+ e)
-                
-                asia.push(asiaContinent.get(e)!);
-                europe.push(europeContinent.get(e)!);
-                africa.push(africaContinent.get(e)!);
-                america.push(americaContinent.get(e)!);
-                oceania.push(oceaniaContinent.get(e)!);
+                if (asiaContinent.get(e) !== -1){
+                    asia.push(asiaContinent.get(e)!);
+                }
+                if (europeContinent.get(e) !== -1){
+                    europe.push(europeContinent.get(e)!);
+                }
+                if (africaContinent.get(e) !== -1){
+                    africa.push(africaContinent.get(e)!);
+                }
+                if (americaContinent.get(e) !== -1){
+                    america.push(americaContinent.get(e)!);
+                }
+                if (oceaniaContinent.get(e) !== -1){
+                    oceania.push(oceaniaContinent.get(e)!);
+                }
             })
             console.log("asia : "+asia)
            /* asia = [502, 635, 809, 947, 1402, 3634, 5268]
