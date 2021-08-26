@@ -7,7 +7,7 @@
 </figure>
 <form>
     <div class="row">
-        <div class="col-12 justify-content-around d-flex">
+        <div class="col-6 sm-12 justify-content-around d-flex">
             <mat-form-field>
                 <mat-label>Select a year</mat-label>
                 <mat-select [(value)]="selectedYear">
@@ -17,6 +17,9 @@
                   <mat-option value="2022">2022</mat-option>
                 </mat-select>
             </mat-form-field>
+        </div>
+        <br>
+        <div class="col-5  sm-12 justify-content-around d-flex">
             <mat-form-field>
                 <mat-label>Select a product</mat-label>
                 <mat-select [(value)]="selectedProd">
@@ -27,6 +30,7 @@
                 </mat-select>
             </mat-form-field>
         </div>
+        <br>
         <div class="col-12 justify-content-around d-flex">
             <div class="mb-3 justify-content-around d-flex">
                 <button class="btn rounded bgBtn" type="button" (click)="filter()">Filtrer</button>
