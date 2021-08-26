@@ -9,10 +9,13 @@ import * as Highcharts from 'highcharts';
 
 export class Page1Component implements OnInit {
   text1="chiffre d'affaires"
-  myColor2="#20c997"
-  myColor3="rgb(247, 163, 92)"
   text2="nombre de clients"
   text3="total de produits vendus"
+  myColor2="#20c997"
+  myColor3="rgb(247, 163, 92)"
+  variable1 = "chiffre_affaire"
+  variable2 = "client"
+  variable3 = "produit"
     constructor() { }
 
     ngOnInit(): void {
