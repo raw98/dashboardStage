@@ -23,15 +23,11 @@ export class PiechartComponent implements OnInit {
   
   viewData(){
     this.pieChartService.getData(this.selectedProd, this.year).subscribe(value => {
-        console.log(JSON.stringify(value))
-        
-        
+
         value.forEach(e =>{
-            console.log(e);
             this.data.push({name : e.continent, y : e.pourcentage})
         })
 
-        this.data.forEach(e => console.log("new data :"+ this.data))
         this.options = {
             chart: {
               plotBackgroundColor: null,
@@ -71,7 +67,6 @@ export class PiechartComponent implements OnInit {
   filter(){
     this.data.splice(0, this.data.length)
    this.year = Number(this.selectedYear)
-   console.log("prod : "+ this.selectedProd)
    this.viewData()
   }
 }
