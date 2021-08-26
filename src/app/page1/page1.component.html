@@ -2,21 +2,24 @@
     <div class="row d-flex justify-content-around">
         <div class="col-12 col-lg-4 my-3 ">
             <mat-card class="shadow">
-                <app-chart1  [text]="text1"></app-chart1>
+                <app-chart1   [variable]="variable1"></app-chart1>
                 </mat-card> 
             </div>
             <div class="col-12 col-lg-4 my-3">
                 <mat-card class="shadow">
-                    <app-chart1 [color]="myColor2" [text]="text2"></app-chart1>
+                    <app-chart1  [variable]="variable2"></app-chart1>
                     </mat-card> 
                 </div>
                 <div class="col-12 col-lg-4 my-3">
                     <mat-card class="shadow">
-                        <app-chart1 [color]="myColor3" [text]="text3"></app-chart1>
+                        <app-chart1 [variable]="variable3"></app-chart1>
                         </mat-card> 
                     </div> 
     </div>
 </div><!--end chart 1-->
+<!--[text]="text1"
+[color]="myColor2" [text]="text2"
+[color]="myColor3" [text]="text3" -->
 <br>
 <mat-divider></mat-divider>
 <br>
