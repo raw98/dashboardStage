@@ -83,7 +83,6 @@ export class Chart2Component implements OnInit {
                     oceania.push(oceaniaContinent.get(e)!);
                 }
             })
-            console.log("asia : "+asia)
            
             this.chartOptions={
                 chart: {
