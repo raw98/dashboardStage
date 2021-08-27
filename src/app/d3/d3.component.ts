@@ -1,5 +1,7 @@
 import { Attribute, Component, HostListener, Input, OnInit } from '@angular/core';
 import * as d3 from "d3";
+import { WorldMap } from '../models/world-map';
+import { WorldMapService } from '../services/world-map.service';
 declare const d33: any;
 @Component({
   selector: 'app-d3',
@@ -9,8 +11,9 @@ declare const d33: any;
 export class D3Component implements OnInit {
 @Input() isOpen:boolean=false;
 public innerWidth:number;
-
-  constructor() { 
+year =2021
+d3map !: WorldMap[]
+  constructor(public d3MapService : WorldMapService) { 
     this.innerWidth = window.innerWidth;
 
   }
@@ -21,8 +24,11 @@ onResize(event:any) {
   
 }
 
-  ngOnInit(): void {
-    d33();
+
+
+
+ngOnInit(): void {
+  d33(this.d3MapService.getData(this.year), this.d3map);
 }
 
 }
