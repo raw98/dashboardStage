@@ -9,26 +9,33 @@ declare const d33: any;
   styleUrls: ['./d3.component.scss']
 })
 export class D3Component implements OnInit {
-@Input() isOpen:boolean=false;
-public innerWidth:number;
-year =2021
-d3map !: WorldMap[]
-  constructor(public d3MapService : WorldMapService) { 
-    this.innerWidth = window.innerWidth;
+  @Input() isOpen:boolean=false;
+  public innerWidth:number;
+  year =2021
+  d3map !: WorldMap[]
+  selectedValue = "none"
+  selected = 'none'
+    constructor(public d3MapService : WorldMapService) { 
+      this.innerWidth = window.innerWidth;
 
+    }
+    @HostListener('window:resize', ['$event'])
+  onResize(event:any) {
+    this.innerWidth = event.target.innerWidth ;
+    //console.log(this.innerWidth);
+    
   }
-  @HostListener('window:resize', ['$event'])
-onResize(event:any) {
-  this.innerWidth = event.target.innerWidth ;
-  console.log(this.innerWidth);
-  
-}
 
+  ngOnInit(): void {
+    this.viewData()
+  }
+  changeSelect(event: any){
+    console.log(this.selectedValue)
 
-
-
-ngOnInit(): void {
-  d33(this.d3MapService.getData(this.year), this.d3map);
-}
-
+    this.selectedValue = event.value
+    this.viewData()
+  }
+  viewData(){
+    d33(this.d3MapService, this.d3map, this.year, this.selectedValue);
+  }
 }
