@@ -24,8 +24,6 @@ import { PiechartComponent } from './piechart/piechart.component';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
 import {MatSelectModule} from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
-import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-import { MapLeafletComponent } from './map-leaflet/map-leaflet.component';
 
 const routes : Routes=[
   {path: '' , component:Page1Component},
@@ -50,8 +48,7 @@ const routes : Routes=[
     Chart4Component,
     D3Component,
     PiechartComponent,
-    BarChartComponent,
-    MapLeafletComponent
+    BarChartComponent
   ],
   imports: [
     BrowserModule,
@@ -64,8 +61,7 @@ const routes : Routes=[
     MatListModule,
     HighchartsChartModule,
     MatSelectModule,
-    HttpClientModule,
-    LeafletModule
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
