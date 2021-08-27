@@ -13,8 +13,9 @@ export class D3Component implements OnInit {
   public innerWidth:number;
   year =2021
   d3map !: WorldMap[]
-  selectedValue = "none"
+  selectedValue = "boutique"
   selected = 'none'
+
     constructor(public d3MapService : WorldMapService) { 
       this.innerWidth = window.innerWidth;
 
@@ -27,6 +28,7 @@ export class D3Component implements OnInit {
   }
 
   ngOnInit(): void {
+    
     this.viewData()
   }
   changeSelect(event: any){
@@ -36,6 +38,8 @@ export class D3Component implements OnInit {
     this.viewData()
   }
   viewData(){
-    d33(this.d3MapService, this.d3map, this.year, this.selectedValue);
+    let widthMap = document.getElementById('my_dataviz')!.style.width
+    console.log(Number(widthMap))
+    d33(this.d3MapService, this.d3map, this.year, this.selectedValue, widthMap);
   }
 }
