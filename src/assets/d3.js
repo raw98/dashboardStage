@@ -1,5 +1,5 @@
 
-function d33(){
+function d33(variable, d3map){
 
 // initial setup
 const svg = d3.select("svg"),
@@ -7,8 +7,8 @@ const svg = d3.select("svg"),
 	height = svg.attr("height"),
 	path = d3.geoPath(),
 	data = d3.map(),
-	worldmap = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson",
-	worldpopulation = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world_population.csv";
+	worldmap = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson";
+	//worldpopulation = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world_population.csv";
 
 let centered, world;
 
@@ -29,13 +29,26 @@ const tooltip = d3.select("body").append("div")
 		.style("padding-right", "10px")
 		.style("padding-left", "10px")
 		.style("opacity", 0);
-// Load external data and boot
-d3.queue()
-	.defer(d3.json, worldmap)
-	.defer(d3.csv, worldpopulation, function(d) {
-		data.set(d.code, +d.pop);
-	})
-	.await(ready);
+
+variable.subscribe(value => {
+			d3map = value;
+			worldpopulation = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world_population.csv";
+			// Load external data and boot
+			d3.queue()
+			.defer(d3.json, worldmap)
+			.defer(d3.csv, worldpopulation, function(d) {
+				//data.set(d.code, +d.pop);
+				setData(d3map)
+			}
+			)
+			.await(ready);
+		}
+		  )
+function setData(d3map){
+	d3map.forEach(element => {
+		data.set(element.code, element.pop)
+	});
+}
 
 // Add clickable background
 svg.append("rect")
@@ -52,7 +65,7 @@ svg.append("rect")
 function ready(error, topo) {
 	// topo is the data received from the d3.queue function (the world.geojson)
 	// the data from world_population.csv (country code and country population) is saved in data variable
-
+	console.log("data final : "+ data)
 	let mouseOver = function(d) {
 		d3.selectAll(".Country")
 			.transition()
