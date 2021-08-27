@@ -1,50 +1,64 @@
 
-function d33(){
-
+function d33(service, d3map, year, value){
+console.log("new data")
 // initial setup
 const svg = d3.select("svg"),
 	width = svg.attr("width"),
 	height = svg.attr("height"),
 	path = d3.geoPath(),
-	data = d3.map(),
-	worldmap = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson",
-	worldpopulation = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world_population.csv";
+	data = d3.map()
+	worldmap = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson";
+	//worldpopulation = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world_population.csv";
+	var markerData = [];
+	
+	let centered, world;
+	// style of geographic projection and scaling
+	const projection = d3.geoRobinson()
+		.scale(130)
+		.translate([width / 2, height / 2]);
 
-let centered, world;
+	// Define color scale
+	const colorScale = d3.scaleThreshold()
+		.domain([100000, 1000000, 10000000, 30000000, 100000000, 500000000])
+		.range(d3.schemeOrRd[7]);
 
-// style of geographic projection and scaling
-const projection = d3.geoRobinson()
-	.scale(130)
-	.translate([width / 2, height / 2]);
-
-// Define color scale
-const colorScale = d3.scaleThreshold()
-	.domain([100000, 1000000, 10000000, 30000000, 100000000, 500000000])
-	.range(d3.schemeOrRd[7]);
-
-// add tooltip
-const tooltip = d3.select("body").append("div")
+	// add tooltip
+	const tooltip = d3.select("body").append("div")
 		.attr("class", "tooltip")
 		.style("background-color", "white")
 		.style("padding-right", "10px")
 		.style("padding-left", "10px")
 		.style("opacity", 0);
-// Load external data and boot
-d3.queue()
-	.defer(d3.json, worldmap)
-	.defer(d3.csv, worldpopulation, function(d) {
-		data.set(d.code, +d.pop);
-	})
-	.await(ready);
 
-// Add clickable background
-svg.append("rect")
-  .attr("class", "background")
-	.attr("width", "0")
-	.attr("height", height)
-	.on("click", click);
+	service.getData(year).subscribe(value => {
+			d3map = value;
+			worldpopulation = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world_population.csv";
+			// Load external data and boot
+			d3.queue()
+			.defer(d3.json, worldmap)
+			.defer(d3.csv, worldpopulation, function(d) {
+				//data.set(d.code, +d.pop);
+				setData(d3map)
+			}
+			)
+			.await(ready);
+		}
+	)
 
+	function setData(d3map){
+		d3map.forEach(element => {
+			data.set(element.code, element.vente)
+		});
+	}
 
+	// Add clickable background
+	svg.append("rect")
+	.attr("class", "background")
+		.attr("width", "0")
+		.attr("height", height)
+		.on("click", click);
+
+	
 // ----------------------------
 //Start of Choropleth drawing
 // ----------------------------
@@ -52,7 +66,7 @@ svg.append("rect")
 function ready(error, topo) {
 	// topo is the data received from the d3.queue function (the world.geojson)
 	// the data from world_population.csv (country code and country population) is saved in data variable
-
+	console.log("new config")
 	let mouseOver = function(d) {
 		d3.selectAll(".Country")
 			.transition()
@@ -161,8 +175,44 @@ function ready(error, topo) {
 		});
 
 	legend.append("text").attr("x", 15).attr("y", 280).text("vente (Million £)");
+//var markerData= [{lon: 25.2255, lat: 5.325585},{lon: 21.22635, lat: 80.55555}]
+	//marker
+	if (value !== 'none'){
+		console.log(value)
+		world.selectAll('world.node').remove()
+		setMarkers()
+	
+	}
 }
+function setMarkers(node){
+	service.getLocalisation(value).subscribe( element => {
+		//set data
+		element.forEach(e => {
+			markerData.push({lon: e.lon, lat: e.lat})
+			//tooltip ...
+			console.log(e.name)
+		});
+		console.log("markerData: "+ JSON.stringify(markerData))
+		//draw marker
+		
+		var node =	world.selectAll('world.node') 
+			.data(markerData)
+			.enter().append('g').attr('class', 'node')
+			.attr('transform', function(d) { return 'translate(' + projection([d.lon, d.lat])[0] + ',' + projection([d.lon, d.lat])[1] + ')'; });
 
+		node.append('path')
+			.attr('d', 'M16,0C9.382,0,4,5.316,4,12.001c0,7,6.001,14.161,10.376,19.194   C14.392,31.215,15.094,32,15.962,32c0.002,0,0.073,0,0.077,0c0.867,0,1.57-0.785,1.586-0.805   c4.377-5.033,10.377-12.193,10.377-19.194C28.002,5.316,22.619,0,16,0z M16.117,29.883c-0.021,0.02-0.082,0.064-0.135,0.098   c-0.01-0.027-0.084-0.086-0.129-0.133C12.188,25.631,6,18.514,6,12.001C6,6.487,10.487,2,16,2c5.516,0,10.002,4.487,10.002,10.002   C26.002,18.514,19.814,25.631,16.117,29.883z')
+			.attr('fillrule', 'evenodd')
+			.attr('cliprule', 'evenodd')
+			.attr('fill', '#333333');
+		node.append('path')
+			.attr('d', 'M16.002,17.746c3.309,0,6-2.692,6-6s-2.691-6-6-6   c-3.309,0-6,2.691-6,6S12.693,17.746,16.002,17.746z M16.002,6.746c2.758,0,5,2.242,5,5s-2.242,5-5,5c-2.758,0-5-2.242-5-5   S13.244,6.746,16.002,6.746z')
+			.attr('fillrule', 'evenodd')
+			.attr('cliprule', 'evenodd')
+			.attr('fill', '#333333');
+			console.log(node)
+	})
+}
 // Zoom functionality
 function click(d) {
   var x, y, k;
