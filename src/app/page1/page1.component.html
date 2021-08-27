@@ -1,5 +1,5 @@
-<div class="chart1">
-    <div class="row d-flex justify-content-around">
+<div class="chart">
+    <div [ngClass]="{'row': true , 'open': open , 'closed' : !open}">
         <div class="col-12 col-lg-4 my-3 ">
             <mat-card class="shadow">
                 <app-chart1   [variable]="variable1"></app-chart1>
@@ -24,21 +24,28 @@
 <mat-divider></mat-divider>
 <br>
 
-<div class="my-3 chart2 ">
-    <div class="row mx-1 bg-white shadow">
+<div class="chart">
+    <div [ngClass]="{'row': true , 'open': open , 'closed' : !open}">
         <div class="col-12">
-            <app-chart2></app-chart2>
-        </div>
+            <mat-card class="shadow">
+                <app-chart2></app-chart2>
+            </mat-card>
+                    </div>
     </div>
 </div><!--end chart 2-->
 
 <br>  
 <mat-divider></mat-divider>
-<br><!--carte-->
-
-<div class="chart3 mx-1 my-3">
-    <app-d3></app-d3>
-</div><!--end carte-->
+<br>
+<!--carte-->
+<div class="chart">
+    <div [ngClass]="{'row': true , 'closed' : !open}">
+        <div class="col-12">
+    <app-d3 [isOpen]="!open"></app-d3>
+</div>
+</div>
+</div>
+<!--end carte-->
 <br>
 <mat-divider></mat-divider>
 <br>
@@ -49,13 +56,17 @@
 <mat-divider></mat-divider>
 <br>
 <div class="chart1">
-    <div class="row mb-3 d-flex justify-content-around">
-        <div class="col-12 col-lg-5 mx-0 mx-md-3 mt-3 shadow bg-white ">
-                <app-piechart></app-piechart>      
+    <div   [ngClass]="{'row mb-3 d-flex justify-content-around': true , 'open': open , 'closed' : !open}">
+        <div class="col-12 col-lg-5 mx-0 mx-md-3 mt-3 ">
+            <mat-card class="shadow">
+                <app-piechart></app-piechart> 
+            </mat-card>     
         </div>
         
-        <div class="col-12 col-lg-6 mx-0 mx-md-3 mt-3 shadow bg-white">
-            <app-bar-chart></app-bar-chart> 
+        <div class="col-12 col-lg-6 mx-0 mx-md-3 mt-3">
+            <mat-card class="shadow">
+                <app-bar-chart></app-bar-chart> 
+            </mat-card>  
         </div>
         
     </div>

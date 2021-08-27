@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
 
 @Component({
@@ -11,6 +11,7 @@ export class Page1Component implements OnInit {
   text1="chiffre d'affaires"
   text2="nombre de clients"
   text3="total de produits vendus"
+  @Input() open:boolean=false;
   myColor2="#20c997"
   myColor3="rgb(247, 163, 92)"
   variable1 = "chiffre_affaire"

@@ -23,6 +23,9 @@ h1 {
   box-shadow: 1px 1px 15px #c9c6c6;
   width: 81.5%;
 }
+.fullMap{
+  width: 100%;
+}
 
 div.tooltip {   
   position: absolute;
@@ -44,7 +47,4 @@ rect.background{
   width: 0px;
 }
 
-.world {
-  transform-origin: center;
-}
 
