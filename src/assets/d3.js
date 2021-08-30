@@ -1,5 +1,5 @@
 
-function d33(service, d3map, year, value, width){
+function d33(service, d3map, year, value){
 console.log("new data")
 // initial setup
 const svg = d3.select("svg"),

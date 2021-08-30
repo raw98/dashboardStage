@@ -40,6 +40,6 @@ export class D3Component implements OnInit {
   viewData(){
     let widthMap = document.getElementById('my_dataviz')!.style.width
     console.log(Number(widthMap))
-    d33(this.d3MapService, this.d3map, this.year, this.selectedValue, widthMap);
+    d33(this.d3MapService, this.d3map, this.year, this.selectedValue);
   }
 }

@@ -24,6 +24,7 @@ import { PiechartComponent } from './piechart/piechart.component';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
 import {MatSelectModule} from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 const routes : Routes=[
   {path: '' , component:Page1Component},
@@ -61,7 +62,8 @@ const routes : Routes=[
     MatListModule,
     HighchartsChartModule,
     MatSelectModule,
-    HttpClientModule
+    HttpClientModule,
+    MatButtonToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

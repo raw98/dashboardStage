@@ -24,8 +24,16 @@ div{
 div:hover{
     color: black;
     background-color: #e0a800;
-}}
-
+}
+}
+#filtrer:hover{
+    //color: black;
+    background-color: #e0a800;
+}
+#filtrer{
+    padding: 11px;
+    font-size: 17px;
+}
 @media (max-width: 746px) {
     img{
         height: 75px;
@@ -68,3 +76,7 @@ div:hover{
             }
         }
     }}
+
+    .mat-form-field + .mat-form-field {
+        margin-left: 8px;
+      }
