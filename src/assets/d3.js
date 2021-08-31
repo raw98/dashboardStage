@@ -2,20 +2,27 @@
 function d33(service, d3map, year, value){
 console.log("new data")
 // initial setup
+
 const svg = d3.select("svg"),
-	width = svg.attr("width"),
+	//width = svg.attr("width"),
+	
 	height = svg.attr("height"),
 	path = d3.geoPath(),
 	data = d3.map()
 	worldmap = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson";
 	//worldpopulation = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world_population.csv";
 	var markerData = [];
-	
 	let centered, world;
+	const element = document.querySelector('.my_dataviz')
+	const mapWidth = element.style.width
+	console.log("fontsize 1: "+mapWidth) 
+	var width = mapWidth.replace('vw', '');
+	console.log("fontsize 2: "+Number(width)) 
+
 	// style of geographic projection and scaling
 	const projection = d3.geoRobinson()
 		.scale(130)
-		.translate([width / 2, height / 2]);
+		.translate([width /2, height /2]);
 
 	// Define color scale
 	const colorScale = d3.scaleThreshold()
@@ -37,11 +44,6 @@ const svg = d3.select("svg"),
 			setData(d3map)
 			d3.queue()
 			.defer(d3.json, worldmap)
-			/*.defer(d3.csv, worldpopulation, function(d) {
-				data.set(d.code, +d.pop);
-				
-			}
-			)*/
 			.await(ready);
 		}
 	)
@@ -132,7 +134,7 @@ function ready(error, topo) {
 		//.on("click", click);
   
 	// Legend
-	const x = d3.scaleLinear()
+/*	const x = d3.scaleLinear()
 		.domain([2.6, 75.1])
 		.rangeRound([600, 860]);
 
@@ -175,7 +177,7 @@ function ready(error, topo) {
 			return d[0] / 1000000 + " m - " + d[1] / 1000000 + " m";
 		});
 
-	legend.append("text").attr("x", 15).attr("y", 280).text("vente (Million £)");
+	legend.append("text").attr("x", 15).attr("y", 280).text("vente (Million £)");*/
 //var markerData= [{lon: 25.2255, lat: 5.325585},{lon: 21.22635, lat: 80.55555}]
 	//marker
 	

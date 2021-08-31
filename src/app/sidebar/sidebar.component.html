@@ -9,7 +9,7 @@
 
 <div matSubheader id="filtrer">Filtrer par :</div>
 <div class="d-flex justify-content-center mb-3">
-  <mat-button-toggle-group multiple name="date" aria-label="Font Style" class="d-flex flex-column">
+  <mat-button-toggle-group multiple name="date" aria-label="Font Style" class="d-flex flex-column" #group1="matButtonToggleGroup">
     <mat-button-toggle value="continent" class=" ">
       <mat-form-field>
         <mat-label>Continent</mat-label>
@@ -27,7 +27,7 @@
         </mat-select>
       </mat-form-field>
     </mat-button-toggle>
-    <mat-button-toggle value="ville" class=" ">
+    <!--mat-button-toggle value="ville" class=" ">
         <mat-form-field>
           <mat-label>Ville</mat-label>
           <mat-select>
@@ -35,17 +35,17 @@
             
           </mat-select>
         </mat-form-field>
-      </mat-button-toggle><!--filtre par jour-->
+      </mat-button-toggle--><!--filtre par jour-->
   </mat-button-toggle-group>
 </div><!--filtre 1-->
 
 <div matSubheader id="filtrer">Filtrer par :</div>
 <div class="d-flex justify-content-center mb-3">
-  <mat-button-toggle-group name="date" aria-label="Font Style" class="d-flex flex-column" [value]="selectedFilter2">
+  <mat-button-toggle-group name="date" #group2="matButtonToggleGroup" aria-label="Font Style" class="d-flex flex-column" [value]="selectedFilter2" (change)="onValChange(group2.value)" >
     <mat-button-toggle value="year">
       <mat-form-field>
         <mat-label>Année</mat-label>
-        <mat-select [value]="selectedFilter2Year">
+        <mat-select [(value)]="selectedFilter2Year" (change)="onYearChange($event)">
           <mat-option value="{{currentYear}}">{{currentYear}}</mat-option>
           <mat-option *ngFor= "let element of years" [value]="element">{{element}}</mat-option>
           
@@ -55,18 +55,18 @@
     <mat-button-toggle value="week">
       <mat-form-field>
         <mat-label>Semaine</mat-label>
-        <mat-select>
-          <mat-option value="2019">2019</mat-option>
-          <mat-option value="2020">2020</mat-option>
-          <mat-option value="2021">2021</mat-option>
-          <mat-option value="2022">2022</mat-option>
+        <mat-select  [(value)]="selectedFilter2Week" (change)="onWeekChange($event)">
+          <mat-option value="1">1</mat-option>
+          <mat-option value="2">2</mat-option>
+          <mat-option value="3">3</mat-option>
+      
         </mat-select>
       </mat-form-field>
     </mat-button-toggle>
     <mat-button-toggle value="day" class=" ">
         <mat-form-field>
           <mat-label>Jour</mat-label>
-          <mat-select>
+          <mat-select  [(value)]="selectedFilter2Day" (change)="onDayChange($event)">
             <mat-option *ngFor= "let element of days" [value]="element">{{element}}</mat-option>
             
           </mat-select>
@@ -79,11 +79,11 @@
 
 <div matSubheader id="filtrer">Filtrer par :</div>
 <div class="d-flex justify-content-center mb-3">
-  <mat-button-toggle-group name="date" aria-label="Font Style" class="d-flex flex-column" [value]="selectedFilter3">
+  <mat-button-toggle-group name="date" aria-label="Font Style" class="d-flex flex-column"  #group3="matButtonToggleGroup" [value]="selectedFilter3" (change)="onFilter3Change(group3.value)">
     <mat-button-toggle value="article" class=" ">
       <mat-form-field >
         <mat-label>Article</mat-label>
-        <mat-select id="formFilter1" [value]= "selectedFilter3Article">
+        <mat-select id="formFilter1" [(value)]= "selectedFilter3Article" (change)="onArticleChange($event)">
           <mat-option *ngFor= "let element of articles" [value]="element">{{element}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -99,32 +99,10 @@
     </mat-button-toggle>
   </mat-button-toggle-group>
 </div><!--filtre 3-->
-<!--map
-article
-fournisseur
-client
-magazin-->
-<!--<mat-button-toggle value="client" class=" ">
-      <mat-form-field>
-        <mat-label>Client</mat-label>
-        <mat-select [value]= "selectedFilter1Client">
-          <mat-option *ngFor= "let element of clients" [value]="element">{{element}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-button-toggle>
-    <mat-button-toggle value="fournisseur" class=" ">
-        <mat-form-field>
-          <mat-label>Fournisseur</mat-label>
-          <mat-select [value]= "selectedFilter1Fournisseur">
-            <mat-option *ngFor= "let element of fournisseurs" [value]="element">{{element}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </mat-button-toggle>
-      <mat-button-toggle value="magazin" class=" ">
-        <mat-form-field>
-          <mat-label>Magazin</mat-label>
-          <mat-select [value]= "selectedFilter1Magazin">
-            <mat-option *ngFor= "let element of magazins" [value]="element">{{element}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </mat-button-toggle>-->
+
+<mat-divider></mat-divider>
+<br>
+
+  <div class="mb-3 justify-content-around d-flex">
+    <button class="btn rounded bgBtn" type="button" (click)="emitItems()">Filtrer</button>
+  </div>

@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
   //Add 'implements OnInit' to the class.
-  
+  filter !: string[][]
  
   title = 'dashboardStage';
   test:boolean=true;
@@ -18,12 +18,18 @@ export class AppComponent implements OnInit {
   }
   ngOnInit(): void {
     this.initializeSide();
+    
 }
   changeModeNav(value:string){
     this.test=!this.test;
   }
   initializeSide(){
     if(this.innerWidth<=767)
-    this.changeModeNav("ok");
+      this.changeModeNav("ok");
+  }
+  addItem(item : any[]) {
+    
+    this.filter = item
+    console.log("filter:" + this.filter)
   }
 }

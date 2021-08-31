@@ -1,25 +1,27 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-
+import { AfterViewInit, Component, OnInit, Output, EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements AfterViewInit, OnInit {
+  
+  @Output() filter = new EventEmitter<any[]>();
   panelOpenState = false;
   currentYear: number = new Date().getFullYear();
   continents = ["All", "Asia", "Africa", "Europe", "America", "Oceania"]
   years :number[] = []
   days = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samdi", "Dimanche"]
   articles= ["All", "Article1", "Article2"]
-  clients = ["client1", "client2", "client3"]
-  fournisseurs = ["fournisseur1", "fournisseur2"]
-  magazins = ["magazin1", "magazin2", "magazin3"]
 
-  selectedFilter3= "article"
-  selectedFilter3Article = "All"
-  selectedFilter2 = "year"
-  selectedFilter2Year  = this.currentYear.toString()
+  selectedFilter3 !: string
+  selectedFilter3Article !: string
+  
+  selectedFilter2 !: string
+  //selectedFilter2Year  = this.currentYear.toString()
+  selectedFilter2Year  !: string
+  selectedFilter2Week !: string
+  selectedFilter2Day !: string
   constructor() { }
   ngAfterViewInit(): void {
     
@@ -32,11 +34,53 @@ export class SidebarComponent implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     
-    console.log(this.selectedFilter3)
+   
+  }
+  
+  emitItems(){
+    
+    let emitList = []
+    let selectedFilter2Element !:string
+    switch (this.selectedFilter2){
+      case 'year':
+        selectedFilter2Element = this.selectedFilter2Year;
+        break;
+      case 'week':
+        selectedFilter2Element = this.selectedFilter2Week;
+        break;
+      case 'day':
+        selectedFilter2Element = this.selectedFilter2Day;
+        break;
+    }
+    emitList.push([this.selectedFilter2 , selectedFilter2Element])
 
-    //console.log("value : "+document.getElementById("formFilter1")?.getAttribute("value"))
-    console.log(this.selectedFilter2Year)
-    console.log(this.years)
+    if (this.selectedFilter3 === 'article')
+    {
+      emitList.push([this.selectedFilter3, this.selectedFilter3Article])
+    }
+    else emitList.push([this.selectedFilter3])
+    emitList.forEach(e => console.log("e :" + e))
+    this.filter.emit(emitList);
   }
 
+  public onValChange(val: string) {
+    this.selectedFilter2 = val;
+  }
+  onYearChange(event: any){
+    this.selectedFilter2Year = event.value
+    console.log(this.selectedFilter2Year)
+  }
+  onWeekChange(event: any){
+    this.selectedFilter2Week = event.value
+  }
+  onDayChange(event: any){
+    this.selectedFilter2Day = event.value
+  }
+
+  onFilter3Change(val: string){
+    this.selectedFilter3 = val;
+  }
+  onArticleChange(event: any){
+    this.selectedFilter3Article = event.value
+  }
 }
