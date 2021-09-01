@@ -1,10 +1,10 @@
 <app-navbar (mode)="changeModeNav($event)" ></app-navbar>
 <mat-drawer-container>
     <mat-drawer mode="side"  [opened]="test" >
-       <app-sidebar></app-sidebar>
+       <app-sidebar (filter)="addItem($event)"></app-sidebar>
     </mat-drawer>
     <mat-drawer-content>
-        <app-page1 [open]="test"></app-page1>
+        <app-page1 [open]="test" [filterPage1]="filter"></app-page1>
         
         
     </mat-drawer-content>

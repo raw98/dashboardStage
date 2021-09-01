@@ -11,6 +11,7 @@ export class Page1Component implements OnInit {
   text1="chiffre d'affaires"
   text2="nombre de clients"
   text3="total de produits vendus"
+  @Input() filterPage1 !: any[][]
   @Input() open:boolean=false;
   myColor2="#20c997"
   myColor3="rgb(247, 163, 92)"
@@ -20,6 +21,7 @@ export class Page1Component implements OnInit {
     constructor() { }
 
     ngOnInit(): void {
+      
     }
   
 }
