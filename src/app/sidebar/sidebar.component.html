@@ -9,11 +9,11 @@
 
 <div matSubheader id="filtrer">Filtrer par :</div>
 <div class="d-flex justify-content-center mb-3">
-  <mat-button-toggle-group multiple name="date" aria-label="Font Style" class="d-flex flex-column" #group1="matButtonToggleGroup">
+  <mat-button-toggle-group multiple name="date" aria-label="Font Style" class="d-flex flex-column" #group1="matButtonToggleGroup" [value]="selectedFilter1" (change)="onFilter1Change(group1.value)" >
     <mat-button-toggle value="continent" class=" ">
       <mat-form-field>
         <mat-label>Continent</mat-label>
-        <mat-select>
+        <mat-select [(value)]="selectedFilter1Continent" (change)="onContinentChange($event)">
           <mat-option *ngFor="let element of continents" [value]="element">{{element}}</mat-option>
         </mat-select>
       </mat-form-field>

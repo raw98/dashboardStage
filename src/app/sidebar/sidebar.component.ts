@@ -14,14 +14,16 @@ export class SidebarComponent implements AfterViewInit, OnInit {
   days = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samdi", "Dimanche"]
   articles= ["All", "Article1", "Article2"]
 
-  selectedFilter3 !: string
-  selectedFilter3Article !: string
+  selectedFilter3 ="article"
+  selectedFilter3Article ="All"
   
-  selectedFilter2 !: string
-  //selectedFilter2Year  = this.currentYear.toString()
-  selectedFilter2Year  !: string
+  selectedFilter2 = "year"
+  selectedFilter2Year  = this.currentYear.toString()
   selectedFilter2Week !: string
   selectedFilter2Day !: string
+
+  selectedFilter1 = "continent"
+  selectedFilter1Continent = "All"
   constructor() { }
   ngAfterViewInit(): void {
     
@@ -82,5 +84,12 @@ export class SidebarComponent implements AfterViewInit, OnInit {
   }
   onArticleChange(event: any){
     this.selectedFilter3Article = event.value
+  }
+
+  onContinentChange(event: any){
+    this.selectedFilter1Continent = event.value
+  }
+  onFilter1Change(val: string){
+    this.selectedFilter1 = val;
   }
 }
