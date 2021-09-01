@@ -1,4 +1,6 @@
-import { AfterViewInit, Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { AfterViewInit, Component, OnInit} from '@angular/core';
+import { JsonFormatter } from 'tslint/lib/formatters';
+import { GlobalsService } from '../services/globals.service';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -6,7 +8,7 @@ import { AfterViewInit, Component, OnInit, Output, EventEmitter } from '@angular
 })
 export class SidebarComponent implements AfterViewInit, OnInit {
   
-  @Output() filter = new EventEmitter<any[]>();
+
   panelOpenState = false;
   currentYear: number = new Date().getFullYear();
   continents = ["All", "Asia", "Africa", "Europe", "America", "Oceania"]
@@ -24,24 +26,26 @@ export class SidebarComponent implements AfterViewInit, OnInit {
 
   selectedFilter1 = "continent"
   selectedFilter1Continent = "All"
-  constructor() { }
+  constructor(public globalsService : GlobalsService ) { }
   ngAfterViewInit(): void {
     
     let i
     for (i= this.currentYear-1; i> 2018; i--){
       this.years.push(i)
     }
-    
+   /* this.globalsService.setFilters([{"filter": this.selectedFilter1, "element": this.selectedFilter1Continent},
+    {"filter": this.selectedFilter2, "element": this.selectedFilter2Year},
+    {"filter": this.selectedFilter3, "element": this.selectedFilter3Article}])*/
+   
   }
-
   ngOnInit(): void {
     
    
   }
-  
-  emitItems(){
+ 
+  setFilters(){
     
-    let emitList = []
+    let filterList = []
     let selectedFilter2Element !:string
     switch (this.selectedFilter2){
       case 'year':
@@ -54,17 +58,16 @@ export class SidebarComponent implements AfterViewInit, OnInit {
         selectedFilter2Element = this.selectedFilter2Day;
         break;
     }
-    emitList.push([this.selectedFilter2 , selectedFilter2Element])
-
+    filterList.push({"filter": this.selectedFilter2, "element": selectedFilter2Element})
     if (this.selectedFilter3 === 'article')
     {
-      emitList.push([this.selectedFilter3, this.selectedFilter3Article])
+      filterList.push({"filter": this.selectedFilter3, "element": this.selectedFilter3Article})
     }
-    else emitList.push([this.selectedFilter3])
-    emitList.forEach(e => console.log("e :" + e))
-    this.filter.emit(emitList);
+    else filterList.push({"filter": this.selectedFilter3, "element": "none"})
+    this.globalsService.setFilters(filterList)
+    let newVar= this.globalsService.getFilters()
+    console.log("filters globals after set: "+ JSON.stringify(newVar))
   }
-
   public onValChange(val: string) {
     this.selectedFilter2 = val;
   }

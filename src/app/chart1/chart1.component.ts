@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import HC_exporting from 'highcharts/modules/exporting';
 import { Chart1Service } from '../services/chart1.service';
+import { GlobalsService } from '../services/globals.service';
 @Component({
   selector: 'app-chart1',
   templateUrl: './chart1.component.html',
@@ -15,9 +16,14 @@ export class Chart1Component implements OnInit {
 //  @Input() color= '';
   @Input() variable = ''
   categories = [(this.currentYear-2).toString(), (this.currentYear-1).toString(), (this.currentYear).toString()]
-    constructor(public chart1Service : Chart1Service) { }
+    constructor(public chart1Service : Chart1Service, public globalsService: GlobalsService) { }
   
     ngOnInit() {
+        this.globalsService.filters.subscribe(e=>{
+            let newVar= this.globalsService.getFilters()
+            console.log("chart1: "+ JSON.stringify(newVar))
+        }
+        )
         this.viewData()
       }
     treatment(data :any, text: string, color: string){

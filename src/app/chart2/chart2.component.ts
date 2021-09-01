@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import { Chart2Service } from '../services/chart2.service';
+import { GlobalsService } from '../services/globals.service';
 
 @Component({
   selector: 'app-chart2',
@@ -14,10 +15,14 @@ export class Chart2Component implements OnInit {
     chartOptions !: {};
     
     prod = "prod1"
-    constructor(public chart2Service : Chart2Service) { }
+    constructor(public chart2Service : Chart2Service, public globalsService: GlobalsService) { }
   
     ngOnInit() {
-        
+        this.globalsService.filters.subscribe(e=>{
+            let newVar= this.globalsService.getFilters()
+            console.log("chart2: "+ JSON.stringify(newVar))
+        }
+        )
         this.viewData(this.prod)
         
       }

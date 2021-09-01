@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
+import { GlobalsService } from '../services/globals.service';
 import { PieChartService } from '../services/pie-chart.service';
 @Component({
   selector: 'app-piechart',
@@ -13,11 +14,17 @@ export class PiechartComponent implements OnInit {
     year = 2021
     data : Array<{ name: string; y: number}>= []
 
-  constructor(public pieChartService: PieChartService) { 
+  constructor(public pieChartService: PieChartService, public globalsService: GlobalsService) { 
     
   }
 
   ngOnInit(): void {
+    //console.log("filters globals page1: "+JSON.stringify(this.globalsService.filters))
+    this.globalsService.filters.subscribe(e=>{
+        let newVar= this.globalsService.getFilters()
+        console.log("pie: "+ JSON.stringify(newVar))
+    }
+    ) 
     this.viewData() 
   }
   

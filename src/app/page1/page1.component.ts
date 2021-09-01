@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import * as Highcharts from 'highcharts';
 
 @Component({
   selector: 'app-page1',
@@ -21,7 +20,7 @@ export class Page1Component implements OnInit {
     constructor() { }
 
     ngOnInit(): void {
-      
+     
     }
   
 }

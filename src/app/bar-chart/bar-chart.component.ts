@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import { BarChartService } from '../services/bar-chart.service';
+import { GlobalsService } from '../services/globals.service';
 
 
 @Component({
@@ -12,20 +13,7 @@ export class BarChartComponent implements OnInit {
   selected = "2021";
   Highcharts = Highcharts;
   ChartOptions!:{};
-  categories =[
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
-  ]
+  categories =['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', ]
   chiffre !:any
   mois !: string 
   data :any= []
@@ -45,9 +33,14 @@ export class BarChartComponent implements OnInit {
     ["Dec", 0]
   ]);
   year = 2021
-  constructor(public barService: BarChartService) { }
+  constructor(public barService: BarChartService, public globalsService: GlobalsService) { }
 
   ngOnInit(): void {
+    this.globalsService.filters.subscribe(e=>{
+      let newVar= this.globalsService.getFilters()
+      console.log("barChart: "+ JSON.stringify(newVar))
+  }
+  )
  //data par défaut pour l année 2021
    this.viewData(this.year)
    
