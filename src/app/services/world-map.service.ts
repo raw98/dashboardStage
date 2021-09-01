@@ -9,14 +9,14 @@ import { WorldMap } from '../models/world-map';
 })
 export class WorldMapService {
 
-  private baseURL = 'http://localhost:3002/map'
+  private baseURL = 'http://localhost:3000/map'
   constructor(public http: HttpClient) { }
 
   getData(year : number):Observable<WorldMap[]>{
-    return this.http.get<WorldMap[]>(`${this.baseURL}/${year}`);
+    return this.http.get<WorldMap[]>(`${this.baseURL}/data/${year}`);
   }
 //value : fournisseur, client, boutique
   getLocalisation(value: string):Observable<Localisation[]>{
-    return this.http.get<Localisation[]>(`${this.baseURL}/${value}`);
+    return this.http.get<Localisation[]>(`${this.baseURL}/localisation/${value}`);
   }
 }

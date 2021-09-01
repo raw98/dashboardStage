@@ -8,7 +8,7 @@ import { Chart2 } from '../models/chart2';
 })
 export class Chart2Service {
 
-  private baseURL = 'http://localhost:3002/chart2'
+  private baseURL = 'http://localhost:3000'
   constructor(public http: HttpClient) { }
 
   getData(prod : string):Observable<Chart2[]>{

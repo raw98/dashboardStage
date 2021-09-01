@@ -35,13 +35,13 @@ export class Chart1Component implements OnInit {
        
         switch(this.variable){
             case "chiffre_affaire": {
-                this.chart1Service.getChiffre().subscribe(chiffre => {
+                this.chart1Service.get("affaire").subscribe(chiffre => {
                     this.treatment(chiffre, "chiffre d'affaire", "#e0a800")
                 })
                 break
             }
             case "produit": {
-                this.chart1Service.getprod().subscribe(produit => {
+                this.chart1Service.get("produit").subscribe(produit => {
                     
                     const text = "Produits vendus",
                     color = "rgb(247, 163, 92)"
@@ -50,7 +50,7 @@ export class Chart1Component implements OnInit {
                 break
             }
             case "client": {
-                this.chart1Service.getClient().subscribe(client => {
+                this.chart1Service.get("client").subscribe(client => {
                     const text = "Nombre des clients",
                     color = "#20c997"
                     this.treatment(client, text, color)

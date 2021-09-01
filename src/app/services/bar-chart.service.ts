@@ -8,7 +8,7 @@ import { BarChart } from '../models/bar-chart';
 })
 export class BarChartService {
 
-  private baseURL = 'http://localhost:3002/chiffre'
+  private baseURL = 'http://localhost:3000/ca'
   constructor(public http: HttpClient) { }
 
   getChiffre(year:number):Observable<BarChart[]>{

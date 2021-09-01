@@ -8,7 +8,7 @@ import { PieChart } from '../models/pie-chart';
 })
 export class PieChartService {
 
-  private baseURL = 'http://localhost:3002/piechart'
+  private baseURL = 'http://localhost:3000/vente'
   constructor(public http: HttpClient) { }
 
   getData(prod : string, year : number):Observable<PieChart[]>{

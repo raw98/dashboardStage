@@ -1,46 +1,262 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyparser = require('body-parser');
-var User = require('./models/User');
 var cors = require('cors');
 
 var app = express();
 
 app.use(cors());
 
-var db = mongoose.connect('mongodb://localhost:27017/testingdb', function(err, response) {
-    if(err) console.log("An error occured while connecting to the database.");
-    console.log("Successfully connected to the database");
+
+
+//connexion
+var db = mongoose.connect('mongodb://localhost:27017/stage',  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+  },
+function (err, res) {
+    try {
+        console.log('Connected to Database');
+    } catch (err) {
+        throw err;
+    }
 });
 
 app.set('port', process.env.port ||3000);
 app.use(bodyparser.json());
 
+//define the shemas
+const caSchema = new mongoose.Schema({
+    _id : mongoose.Types.ObjectId,
+    annee : Number,
+    mois : String,
+    chiffre : Number
+
+  },{ collection: 'ca' });
+
+  const personSchema = new mongoose.Schema({
+    _id : mongoose.Types.ObjectId,
+    name : String,
+    age : Number
+
+  });
+
+   const produitSchema = new mongoose.Schema(
+   {
+    _id : mongoose.Types.ObjectId,
+     prod : String,
+    jour : String,
+    vente : Number,
+    continent :String
+   });
+
+   const venteSchema = new mongoose.Schema({
+    _id : mongoose.Types.ObjectId,
+    prod : String,
+    annee:Number,
+    continent : String,
+    pourcentage : Number
+   });
+
+   const localisationSchema = new mongoose.Schema({
+    _id : mongoose.Types.ObjectId,
+    type: String,
+    name: String,
+    lat : Number,
+    lon : Number  
+   });
+
+   const dataMapSchema = new mongoose.Schema({
+    _id : mongoose.Types.ObjectId,
+    annee:Number,
+    name : String,
+    code : String,
+    vente: Number
+   });
+
+   const chiffreSchema = new mongoose.Schema({
+    _id : mongoose.Types.ObjectId,
+    type    :String,
+    year    :Number,
+    chiffre :Number
+   });
+//compiling shemas
+const Ca = mongoose.model('Ca', caSchema,"ca");
+const Person = mongoose.model("Person",personSchema,"person");
+const Produit = mongoose.model("Produit",produitSchema,"produit");
+const Vente = mongoose.model("Vente", venteSchema,"vente");
+const Localisation = mongoose.model("Localisation",localisationSchema,"localisation");
+const DataMap = mongoose.model("DataMap",dataMapSchema,"dataMap");
+const Chiffre = mongoose.model("Chiffre",chiffreSchema,"chiffre");
+//operations
+
 app.get('/', (req,res) => {
-    res.send('hello world');
+    res.send('hello beautiful');
 });
-/*
-app.post('/register', (req,res) => {
-    console.log(req.body);
-    var name = req.body.name ;
-    var email = req.body.email ;
-    var password = req.body.password ;
 
-    var user = new User();
-    user.name = name ;
-    user.email = email ;
-    user.password = password ;
-
-    user.save((err, result) => {
-        if (err) {
-            console.log("An error occured while adding user to the database");
-            res.send({success: "Failed to add user", status:500});
+///////////////////////////////////chiffre d'affaires == barchart /////////////////////////////////////
+//find all
+app.get('/ca', (req,res) => {
+    Ca.find({} , (err,data)=>{
+        if(err){
+            res.send(err);
         }
-        res.send({success: "User added successfully", status:200});
-    })
+        res.json(data);
+    }
 
+    );
 });
-*/
+//find by year
+app.get('/ca/:year', (request,res) => {
+    var year=request.params.year;
+    Ca.find({annee: year } , (err,data)=>{
+        if(err){
+            res.send(err);
+        }
+        res.json(data);
+    }
+
+    );
+});
+
+///////////////////////////////////Produit== chart2 /////////////////////////////////////
+//find all
+app.get('/prod', (req,res) => {
+    Produit.find({} , (err,data)=>{
+        if(err){
+            res.send(err);
+        }
+        res.json(data);
+    }
+
+    );
+});
+//find by year
+app.get('/prod:id', (request,res) => {
+    var id=request.params.id;
+    Produit.find({ prod : "prod"+id} , (err,data)=>{
+        if(err){
+            res.send(err);
+        }
+        res.json(data);
+    }
+
+    );
+});
+
+
+///////////////////////////////////Vente== piechart - affichage du pourcentage vente par annee par produit/////////////////////////////////////
+//find all
+app.get('/vente', (req,res) => {
+    Vente.find({} , (err,data)=>{
+        if(err){
+            res.send(err);
+        }
+        res.json(data);
+    }
+
+    );
+});
+//find by year
+app.get('/vente/:prod/:year', (request,res) => {
+    var prod=request.params.prod;
+    var year=request.params.year;
+
+    Vente.find({ prod : prod , annee : year} , (err,data)=>{
+        if(err){
+            res.send(err);
+        }
+        res.json(data);
+    }
+
+    );
+});
+
+
+///////////////////////////////////Localisation == map - affichage des localisation par type /////////////////////////////////////
+//find all
+app.get('/map/localisation', (req,res) => {
+    Localisation.find({} , (err,data)=>{
+        if(err){
+            res.send(err);
+        }
+        res.json(data);
+    }
+
+    );
+});
+//find by type
+app.get('/map/localisation/:type', (request,res) => {
+    var type=request.params.type;
+
+
+    Localisation.find({ type : type } , (err,data)=>{
+        if(err){
+            res.send(err);
+        }
+        res.json(data);
+    }
+
+    );
+});
+
+
+///////////////////////////////////dtaMap == les données affichés sur le map /////////////////////////////////////
+//find all
+app.get('/map/data', (req,res) => {
+    DataMap.find({} , (err,data)=>{
+        if(err){
+            res.send(err);
+        }
+        res.json(data);
+    }
+
+    );
+});
+//find by type
+app.get('/map/data/:year', (request,res) => {
+    var year=request.params.year;
+
+
+    DataMap.find({ annee : year } , (err,data)=>{
+        if(err){
+            res.send(err);
+        }
+        res.json(data);
+    }
+
+    );
+});
+
+
+///////////////////////////////////chiffre == les données statisqtiques globales /////////////////////////////////////
+//find all
+app.get('/chiffre', (req,res) => {
+    Chiffre.find({} , (err,data)=>{
+        if(err){
+            res.send(err);
+        }
+        res.json(data);
+    }
+
+    );
+});
+//find by type de chiffre
+app.get('/chiffre/:type', (request,res) => {
+    var type=request.params.type;
+
+
+    Chiffre.find({ type : type} , (err,data)=>{
+        if(err){
+            res.send(err);
+        }
+        res.json(data);
+    }
+
+    );
+});
+//app listen
 app.listen(app.get('port'), function(err, response) {
-    console.log("Server is running on port",app.get('port'));
+    console.log("Server is listening on port",app.get('port'));
 });
