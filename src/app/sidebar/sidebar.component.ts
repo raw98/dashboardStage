@@ -1,6 +1,10 @@
 import { AfterViewInit, Component, OnInit} from '@angular/core';
 import { JsonFormatter } from 'tslint/lib/formatters';
 import { GlobalsService } from '../services/globals.service';
+interface typeFilter{
+  filter: string,
+  element: string
+}
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -26,6 +30,7 @@ export class SidebarComponent implements AfterViewInit, OnInit {
 
   selectedFilter1 = "continent"
   selectedFilter1Continent = "All"
+  selectedFilter1Region !:string
   constructor(public globalsService : GlobalsService ) { }
   ngAfterViewInit(): void {
     
@@ -33,9 +38,7 @@ export class SidebarComponent implements AfterViewInit, OnInit {
     for (i= this.currentYear-1; i> 2018; i--){
       this.years.push(i)
     }
-   /* this.globalsService.setFilters([{"filter": this.selectedFilter1, "element": this.selectedFilter1Continent},
-    {"filter": this.selectedFilter2, "element": this.selectedFilter2Year},
-    {"filter": this.selectedFilter3, "element": this.selectedFilter3Article}])*/
+
    
   }
   ngOnInit(): void {
@@ -45,7 +48,18 @@ export class SidebarComponent implements AfterViewInit, OnInit {
  
   setFilters(){
     
-    let filterList = []
+    let filterList : typeFilter[] = []
+    let selectedFilter1Element !: string
+    console.log ("filter1 ::: "+this.selectedFilter1)
+    if(this.selectedFilter1 === "continent"){
+      console.log("continent")
+      filterList.push({filter: this.selectedFilter1, element: this.selectedFilter1Continent})
+      filterList.push({filter: "region", element: "none"})
+    }
+    else{
+      filterList.push({filter: "continent", element: this.selectedFilter1Continent})
+      filterList.push({filter: this.selectedFilter1, element: this.selectedFilter1Region})
+    }
     let selectedFilter2Element !:string
     switch (this.selectedFilter2){
       case 'year':
@@ -58,15 +72,15 @@ export class SidebarComponent implements AfterViewInit, OnInit {
         selectedFilter2Element = this.selectedFilter2Day;
         break;
     }
-    filterList.push({"filter": this.selectedFilter2, "element": selectedFilter2Element})
+    filterList.push({filter: this.selectedFilter2, element: selectedFilter2Element})
     if (this.selectedFilter3 === 'article')
     {
-      filterList.push({"filter": this.selectedFilter3, "element": this.selectedFilter3Article})
+      filterList.push({filter: this.selectedFilter3, element: this.selectedFilter3Article})
     }
-    else filterList.push({"filter": this.selectedFilter3, "element": "none"})
+    else filterList.push({filter: this.selectedFilter3, element: this.selectedFilter3})
     this.globalsService.setFilters(filterList)
     let newVar= this.globalsService.getFilters()
-    console.log("filters globals after set: "+ JSON.stringify(newVar))
+    console.log("filters globals after set: "+ JSON.stringify("filterlist: "+JSON.stringify(newVar)))
   }
   public onValChange(val: string) {
     this.selectedFilter2 = val;
@@ -94,5 +108,8 @@ export class SidebarComponent implements AfterViewInit, OnInit {
   }
   onFilter1Change(val: string){
     this.selectedFilter1 = val;
+  }
+  onRegionChange(event: any){
+    this.selectedFilter1Region = event.value
   }
 }

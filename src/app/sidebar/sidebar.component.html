@@ -21,9 +21,9 @@
     <mat-button-toggle value="region" class=" ">
       <mat-form-field>
         <mat-label>Region</mat-label>
-        <mat-select>
-          <mat-option value="2019">2019</mat-option>
-          
+        <mat-select [(value)]="selectedFilter1Region" (change)="onRegionChange($event)">
+          <mat-option value="reg1">reg1</mat-option>
+          <mat-option value="reg2">reg2</mat-option>
         </mat-select>
       </mat-form-field>
     </mat-button-toggle>
