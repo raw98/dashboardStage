@@ -119,7 +119,27 @@ app.get('/ca/:year', (request,res) => {
 
     );
 });
+//find by filter
+//continent, region, year, week, day, article, client, fournisseur, magazin
+/*app.get('/ca/:continent/ :region/ :year/ :week/ :day/ :article/ :client/ :fournisseur/ :magazin', (request,res) => {
+    var continent=request.params.continent;
+    var region=request.params.region;   
+    var year=request.params.year;
+    var week=request.params.week;
+    var day=request.params.day;
+    var article=request.params.article;
+    var client=request.params.client;
+    var fournisseur=request.params.fournisseur;
+    var magazin=request.params.magazin;
+    Ca.find({annee: year } , (err,data)=>{
+        if(err){
+            res.send(err);
+        }
+        res.json(data);
+    }
 
+    );
+});*/
 ///////////////////////////////////Produit== chart2 /////////////////////////////////////
 //find all
 app.get('/prod', (req,res) => {
@@ -141,10 +161,8 @@ app.get('/prod:id', (request,res) => {
         }
         res.json(data);
     }
-
     );
 });
-
 
 ///////////////////////////////////Vente== piechart - affichage du pourcentage vente par annee par produit/////////////////////////////////////
 //find all
