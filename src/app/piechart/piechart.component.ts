@@ -20,15 +20,50 @@ export class PiechartComponent implements OnInit {
 
   ngOnInit(): void {
     //console.log("filters globals page1: "+JSON.stringify(this.globalsService.filters))
-    this.globalsService.filters.subscribe(e=>{
-        let newVar= this.globalsService.getFilters()
-        console.log("pie: "+ JSON.stringify(newVar))
+    this.globalsService.filters.subscribe(filter=>{
+
+      let continent ="none",
+        region ="none",
+        year = 0,
+        week = 0,
+        day ="none",
+        article ="none",
+        client ="none",
+        fournisseur ="none",
+        magazin ="none";
+      filter.forEach(value => {
+        
+        switch(value.filter){
+          case 'continent': continent = value.element;
+                      break;
+          case 'region': region = value.element;
+                      break;
+          case 'year': year = Number(value.element);
+                      break;
+          case 'week': week = Number(value.element);
+                      break;
+          case 'day': day = value.element;
+                      break;
+          case 'article': article = value.element;
+                      break;
+          case 'fournisseur': fournisseur = value.element;
+                      break;
+          case 'client': client = value.element;
+                      break;
+          case 'magazin': magazin = value.element;
+                      break;
+        }
+      })
+      //this.viewData(continent, region, year, week, day, article, client, fournisseur, magazin)
+      
+      this.viewData() 
     }
     ) 
-    this.viewData() 
+    
   }
   
   viewData(){
+      //appel de la méthode getPieData
     this.pieChartService.getData(this.selectedProd, this.year).subscribe(value => {
 
         value.forEach(e =>{

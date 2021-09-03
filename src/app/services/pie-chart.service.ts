@@ -13,7 +13,8 @@ export class PieChartService {
 
   getData(prod : string, year : number):Observable<PieChart[]>{
     return this.http.get<PieChart[]>(`${this.baseURL}/${prod}/${year}`);
-
-    //return this.httpClient.put(`${this.baseURL}/${prod}`,year);
+  }
+  getPieData(continent: string, region: string, year: number, week: number, day: string, article: string, client: string, fournisseur:string, magazin: string):Observable<PieChart[]>{
+    return this.http.get<PieChart[]>(`${this.baseURL}/${continent}/${region}/${year}/${week}/${day}/${article}/${client}/${fournisseur}/${magazin}`);
   }
 }

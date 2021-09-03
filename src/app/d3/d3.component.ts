@@ -1,6 +1,7 @@
 import { Attribute, Component, HostListener, Input, OnInit } from '@angular/core';
 import * as d3 from "d3";
 import { WorldMap } from '../models/world-map';
+import { GlobalsService } from '../services/globals.service';
 import { WorldMapService } from '../services/world-map.service';
 declare const d33: any;
 @Component({
@@ -16,7 +17,7 @@ export class D3Component implements OnInit {
   selectedValue = "boutique"
   selected = 'none'
   widthMap !: number
-    constructor(public d3MapService : WorldMapService) { 
+    constructor(public d3MapService : WorldMapService, public globalsService: GlobalsService) { 
       this.innerWidth = window.innerWidth;
 
     }
@@ -40,6 +41,6 @@ export class D3Component implements OnInit {
   }
   viewData(){
    // 
-    d33(this.d3MapService, this.d3map, this.year, this.selectedValue);
+    d33(this.d3MapService, this.d3map, this.year, this.selectedValue, this.globalsService);
   }
 }

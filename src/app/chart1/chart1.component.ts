@@ -10,21 +10,52 @@ import { GlobalsService } from '../services/globals.service';
 })
 export class Chart1Component implements OnInit {
     currentYear: number = new Date().getFullYear();
-  Highcharts = Highcharts;
-  chartOptions!: {};
+    Highcharts = Highcharts;
+    chartOptions!: {};
 //  @Input() text= ''
 //  @Input() color= '';
-  @Input() variable = ''
-  categories = [(this.currentYear-2).toString(), (this.currentYear-1).toString(), (this.currentYear).toString()]
+    @Input() variable = ''
+    categories = [(this.currentYear-2).toString(), (this.currentYear-1).toString(), (this.currentYear).toString()]
     constructor(public chart1Service : Chart1Service, public globalsService: GlobalsService) { }
   
     ngOnInit() {
-        this.globalsService.filters.subscribe(e=>{
-            let newVar= this.globalsService.getFilters()
-            console.log("chart1: "+ JSON.stringify(newVar))
-        }
-        )
-        this.viewData()
+        this.globalsService.filters.subscribe(filter=>{
+            let continent ="none",
+                region ="none",
+                year = 0,
+                week = 0,
+                day ="none",
+                article ="none",
+                client ="none",
+                fournisseur ="none",
+                magazin ="none";
+            filter.forEach(value => {
+        
+            switch(value.filter){
+            case 'continent': continent = value.element;
+                        break;
+            case 'region': region = value.element;
+                        break;
+            case 'year': year = Number(value.element);
+                        break;
+            case 'week': week = Number(value.element);
+                        break;
+            case 'day': day = value.element;
+                        break;
+            case 'article': article = value.element;
+                        break;
+            case 'fournisseur': fournisseur = value.element;
+                        break;
+            case 'client': client = value.element;
+                        break;
+            case 'magazin': magazin = value.element;
+                        break;
+            }
+            })
+            //this.viewData(continent, region, year, week, day, article, client, fournisseur, magazin)
+            this.viewData()
+        })
+        
       }
     treatment(data :any, text: string, color: string){
         let list =new Map<number, number>() 

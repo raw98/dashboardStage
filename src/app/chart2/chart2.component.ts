@@ -18,12 +18,43 @@ export class Chart2Component implements OnInit {
     constructor(public chart2Service : Chart2Service, public globalsService: GlobalsService) { }
   
     ngOnInit() {
-        this.globalsService.filters.subscribe(e=>{
-            let newVar= this.globalsService.getFilters()
-            console.log("chart2: "+ JSON.stringify(newVar))
-        }
-        )
-        this.viewData(this.prod)
+        this.globalsService.filters.subscribe(filter=>{
+            let continent ="none",
+                region ="none",
+                year = 0,
+                week = 0,
+                day ="none",
+                article ="none",
+                client ="none",
+                fournisseur ="none",
+                magazin ="none";
+            filter.forEach(value => {
+        
+            switch(value.filter){
+            case 'continent': continent = value.element;
+                        break;
+            case 'region': region = value.element;
+                        break;
+            case 'year': year = Number(value.element);
+                        break;
+            case 'week': week = Number(value.element);
+                        break;
+            case 'day': day = value.element;
+                        break;
+            case 'article': article = value.element;
+                        break;
+            case 'fournisseur': fournisseur = value.element;
+                        break;
+            case 'client': client = value.element;
+                        break;
+            case 'magazin': magazin = value.element;
+                        break;
+            }
+            })
+            //this.viewData(continent, region, year, week, day, article, client, fournisseur, magazin)
+            this.viewData(this.prod)
+        })
+        
         
       }
     viewData(prod : string){
