@@ -11,7 +11,8 @@ import { GlobalsService } from '../services/globals.service';
 export class Chart2Component implements OnInit {
     selected ="prod1"
     Highcharts = Highcharts;
-    categories = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim']
+    //les catégories doivent etre initialise par les jours de la semaine actuelle lors de l'alimentaion de la base
+    categories = ['06-09-2021', '07-09-2021', '08-09-2021', '09-09-2021', '10-09-2021', '11-09-2021', '12-09-2021']
     chartOptions !: {};
     
     prod = "prod1"
@@ -94,28 +95,29 @@ export class Chart2Component implements OnInit {
                     } 
                  } 
             })
-           
+            //keys pour avoir les jours filtrés
+            let keys : string[] =Array.from(africaContinent.keys());
             let asia: number[] = []
             let europe: number[] = []
             let africa: number[] = []
             let america: number[] = []
             let oceania: number[] = []
 
-            this.categories.forEach(e => {
+            keys.forEach(e => {
                 
-                if (asiaContinent.get(e) !== -1){
+                if (asiaContinent.get(e)){
                     asia.push(asiaContinent.get(e)!);
                 }
-                if (europeContinent.get(e) !== -1){
+                if (europeContinent.get(e)){
                     europe.push(europeContinent.get(e)!);
                 }
-                if (africaContinent.get(e) !== -1){
+                if (africaContinent.get(e)){
                     africa.push(africaContinent.get(e)!);
                 }
-                if (americaContinent.get(e) !== -1){
+                if (americaContinent.get(e)){
                     america.push(americaContinent.get(e)!);
                 }
-                if (oceaniaContinent.get(e) !== -1){
+                if (oceaniaContinent.get(e)){
                     oceania.push(oceaniaContinent.get(e)!);
                 }
             })

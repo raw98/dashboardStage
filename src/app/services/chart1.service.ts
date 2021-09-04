@@ -14,6 +14,7 @@ export class Chart1Service {
   get(type : string):Observable<Chart1[]>{
     return this.http.get<Chart1[]>(`${this.baseURL}/${type}`);
   }
+  
   getChart1Data(continent: string, region: string, year: number, week: number, day: string, article: string, client: string, fournisseur:string, magazin: string):Observable<Chart1[]>{
     return this.http.get<Chart1[]>(`${this.baseURL}/${continent}/${region}/${year}/${week}/${day}/${article}/${client}/${fournisseur}/${magazin}`);
   }

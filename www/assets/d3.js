@@ -1,9 +1,9 @@
 
-function d33(service, d3map, year, value){
-console.log("new data")
+function d33(service, d3map, year, value, filterService){
+
 // initial setup
 
-const svg = d3.select("svg"),
+	const svg = d3.select("svg"),
 	//width = svg.attr("width"),
 	
 	height = svg.attr("height"),
@@ -15,9 +15,8 @@ const svg = d3.select("svg"),
 	let centered, world;
 	const element = document.querySelector('.my_dataviz')
 	const mapWidth = element.style.width
-	console.log("fontsize 1: "+mapWidth) 
 	var width = mapWidth.replace('vw', '');
-	console.log("fontsize 2: "+Number(width)) 
+
 
 	// style of geographic projection and scaling
 	const projection = d3.geoRobinson()
@@ -36,17 +35,50 @@ const svg = d3.select("svg"),
 		.style("padding-right", "10px")
 		.style("padding-left", "10px")
 		.style("opacity", 0);
-
-	service.getData(year).subscribe(value => {
-			d3map = value;
-			worldpopulation = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world_population.csv";
-			// Load external data and boot
-			setData(d3map)
-			d3.queue()
-			.defer(d3.json, worldmap)
-			.await(ready);
-		}
-	)
+	filterService.filters.subscribe(filter=>{
+        let continent ="none",
+            region ="none",
+            year = 0,
+            week = 0,
+            day ="none",
+            article ="none",
+            client ="none",
+            fournisseur ="none",
+            magazin ="none";
+        filter.forEach(value => {
+        
+            switch(value.filter){
+            case 'continent': continent = value.element;
+                        break;
+            case 'region': region = value.element;
+                        break;
+            case 'year': year = Number(value.element);
+                        break;
+            case 'week': week = Number(value.element);
+                        break;
+            case 'day': day = value.element;
+                        break;
+            case 'article': article = value.element;
+                        break;
+            case 'fournisseur': fournisseur = value.element;
+                        break;
+            case 'client': client = value.element;
+                        break;
+            case 'magazin': magazin = value.element;
+                        break;
+            }
+			service.getData(year).subscribe(value => {
+				d3map = value;
+				worldpopulation = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world_population.csv";
+				// Load external data and boot
+				setData(d3map)
+				d3.queue()
+				.defer(d3.json, worldmap)
+				.await(ready);
+			}
+			)
+        })
+	})
 
 	function setData(d3map){
 		d3map.forEach(element => {
