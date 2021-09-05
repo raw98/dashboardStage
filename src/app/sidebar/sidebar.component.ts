@@ -23,7 +23,7 @@ export class SidebarComponent implements AfterViewInit, OnInit {
   magazins = ["All", "Magazin1", "Magazin2"]
   fournisseurs = ["All", "Fournisseur1", "Fournisseur2"]
 
-  selectedFilter3 ="article"
+  selectedFilter3 !:string
   selectedFilter3Product ="All"
   selectedFilter3Client = "All"
   selectedFilter3Fournisseur = "All"
@@ -79,11 +79,25 @@ export class SidebarComponent implements AfterViewInit, OnInit {
         break;
     }
     filterList.push({filter: this.selectedFilter2, element: selectedFilter2Element})
-    if (this.selectedFilter3 === 'article')
-    {
-      filterList.push({filter: this.selectedFilter3, element: this.selectedFilter3Product})
-    }
-    else filterList.push({filter: this.selectedFilter3, element: this.selectedFilter3})
+    let strFilter3 = JSON.stringify(this.selectedFilter3).slice(1, JSON.stringify(this.selectedFilter3).length-1)
+    let tabFilter3 = strFilter3.split(",")
+    tabFilter3.forEach(e => {
+      console.log(e.slice(1, e.length-1))
+      let selectedFilter = e.slice(1, e.length-1);
+      let selectedFilter3Element !: string
+      switch(selectedFilter){
+        case 'product': selectedFilter3Element = this.selectedFilter3Product
+                        break;
+        case 'magazin': selectedFilter3Element = this.selectedFilter3Magazin
+                        break;
+        case 'fournisseur': selectedFilter3Element = this.selectedFilter3Fournisseur
+                            break;
+        case 'client' : selectedFilter3Element = this.selectedFilter3Client
+                        break;
+      }
+      filterList.push({filter: selectedFilter, element: selectedFilter3Element})
+    })
+   
     this.globalsService.setFilters(filterList)
     let newVar= this.globalsService.getFilters()
     console.log("filters globals after set: "+ JSON.stringify("filterlist: "+JSON.stringify(newVar)))

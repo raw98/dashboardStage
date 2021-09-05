@@ -79,7 +79,7 @@
 
 <div matSubheader id="filtrer">Filtrer par :</div>
 <div class="d-flex justify-content-center mb-3">
-  <mat-button-toggle-group name="date" aria-label="Font Style" class="d-flex flex-column"  #group3="matButtonToggleGroup" [value]="selectedFilter3" (change)="onFilter3Change(group3.value)">
+  <mat-button-toggle-group multiple name="date" aria-label="Font Style" class="d-flex flex-column"  #group3="matButtonToggleGroup" [value]="selectedFilter3" (change)="onFilter3Change(group3.value)">
     <mat-button-toggle value="article" class=" ">
       <mat-form-field >
         <mat-label>Produit</mat-label>
