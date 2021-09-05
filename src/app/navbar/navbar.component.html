@@ -1,16 +1,19 @@
 <nav class="navbar navbar-dark bg-dark">
   <div class="start">
-  <button id="menuButton"  mat-icon-button>
-    <mat-icon id="menuIcon" (click)="changeMode(value)" mat-icon-button>menu</mat-icon>
-  </button>
-  <a class="navbar-brand" href="#">Dash<span>Board</span></a>
-</div>
-        <div class="pull-right">
-        <button type="button" class="btn btn-warning" routerLink="signup">
-          déconnexion
-        </button>
-      </div>
-  </nav>
+    <button id="menuButton"  mat-icon-button>
+      <mat-icon id="menuIcon" (click)="changeMode(value)" mat-icon-button>menu</mat-icon>
+    </button>
+    <a class="navbar-brand" href="#">Dash<span>Board</span></a>
+  </div>
+  <div class="text-white">
+    {{ currentDate | date:'MMMM d, y, h:mm:ss a z'}}
+  </div>
+  <div class="pull-right">     
+    <button type="button" class="btn btn-warning" routerLink="signup">
+      déconnexion
+    </button>
+  </div>
+</nav>
 
 
 

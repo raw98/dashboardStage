@@ -8,7 +8,10 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 export class NavbarComponent implements OnInit {
  @Output() mode = new EventEmitter<string>();
   value:string="click";
-  constructor() { }
+  currentDate = new Date();
+  constructor() { 
+    console.log("date!: "+ this.currentDate)
+  }
 
   ngOnInit(): void {
   
