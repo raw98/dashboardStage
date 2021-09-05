@@ -17,7 +17,7 @@ export class SidebarComponent implements AfterViewInit, OnInit {
   currentYear: number = new Date().getFullYear();
   continents = ["All", "Asia", "Africa", "Europe", "America", "Oceania"]
   years :number[] = []
-  days = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samdi", "Dimanche"]
+  days = [];
   articles= ["All", "Article1", "Article2"]
 
   selectedFilter3 ="article"
@@ -27,11 +27,13 @@ export class SidebarComponent implements AfterViewInit, OnInit {
   selectedFilter2Year  = this.currentYear.toString()
   selectedFilter2Week !: string
   selectedFilter2Day !: string
-
+  numbers:number[];
   selectedFilter1 = "continent"
   selectedFilter1Continent = "All"
   selectedFilter1Region !:string
-  constructor(public globalsService : GlobalsService ) { }
+  constructor(public globalsService : GlobalsService ) {
+    this.numbers=Array(31).fill(1).map((x, i) => i + 1);
+  }
   ngAfterViewInit(): void {
     
     let i

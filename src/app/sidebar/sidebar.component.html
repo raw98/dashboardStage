@@ -63,14 +63,22 @@
         </mat-select>
       </mat-form-field>
     </mat-button-toggle>
-    <mat-button-toggle value="day" class=" ">
+    <mat-button-toggle value="day1" class=" ">
         <mat-form-field>
-          <mat-label>Jour</mat-label>
+          <mat-label>Jour de début</mat-label>
           <mat-select  [(value)]="selectedFilter2Day" (change)="onDayChange($event)">
-            <mat-option *ngFor= "let element of days" [value]="element">{{element}}</mat-option>
-            
+            <mat-option *ngFor= "let number of numbers" [value]="number">{{number}}</mat-option>
           </mat-select>
         </mat-form-field>
+      </mat-button-toggle>
+        <br>
+        <mat-button-toggle value="day2" class=" ">
+          <mat-form-field>
+            <mat-label>Jour de début</mat-label>
+            <mat-select  [(value)]="selectedFilter2Day" (change)="onDayChange($event)">
+              <mat-option *ngFor= "let number of numbers" [value]="number">{{number}}</mat-option>
+            </mat-select>
+          </mat-form-field>
       </mat-button-toggle><!--filtre par jour-->
   </mat-button-toggle-group>
 </div><!--filtre 2-->
