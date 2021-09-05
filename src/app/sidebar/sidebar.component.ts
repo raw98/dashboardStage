@@ -1,5 +1,4 @@
 import { AfterViewInit, Component, OnInit} from '@angular/core';
-import { JsonFormatter } from 'tslint/lib/formatters';
 import { GlobalsService } from '../services/globals.service';
 interface typeFilter{
   filter: string,
