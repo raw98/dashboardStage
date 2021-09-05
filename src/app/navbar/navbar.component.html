@@ -1,14 +1,14 @@
-<nav class="navbar navbar-dark bg-dark">
-  <div class="start">
+<nav class="navbar navbar-dark bg-dark d-flex justify-content-md-between">
+  <div >
     <button id="menuButton"  mat-icon-button>
       <mat-icon id="menuIcon" (click)="changeMode(value)" mat-icon-button>menu</mat-icon>
     </button>
     <a class="navbar-brand" href="#">Dash<span>Board</span></a>
   </div>
-  <div class="text-white">
+  <div class="text-white d-none d-md-block">
     {{ currentDate | date:'MMMM d, y, h:mm:ss a z'}}
   </div>
-  <div class="pull-right">     
+  <div class="mx-2">     
     <button type="button" class="btn btn-warning" routerLink="signup">
       déconnexion
     </button>
