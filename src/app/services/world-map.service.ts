@@ -10,6 +10,7 @@ import { WorldMap } from '../models/world-map';
 export class WorldMapService {
 
   private baseURL = 'http://localhost:3000/map'
+  private URL = 'http://localhost:3002/map'
   constructor(public http: HttpClient) { }
 
   getData(year : number):Observable<WorldMap[]>{
@@ -17,6 +18,7 @@ export class WorldMapService {
   }
 //value : fournisseur, client, boutique
   getLocalisation(value: string):Observable<Localisation[]>{
-    return this.http.get<Localisation[]>(`${this.baseURL}/localisation/${value}`);
+    return this.http.get<Localisation[]>(`${this.URL}/localisation/${value}`);
   }
+
 }

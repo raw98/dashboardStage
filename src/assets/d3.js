@@ -10,7 +10,7 @@ function d33(service, d3map, year, value, filterService, width){
 		data = d3.map()
 		worldmap = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson";
 		//worldpopulation = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world_population.csv";
-		var markerData = [];
+		//var markerData = [];
 		let centered, world;
 		svg.attr("width", width)
 		.style("overflow", "scroll")
@@ -210,34 +210,49 @@ function d33(service, d3map, year, value, filterService, width){
 		//marker
 		
 		if (value !== 'none'){
-			console.log(value)
+			/*console.log(value)
 			console.log("world1 : "+JSON.stringify(world))
 			world.selectAll('world.node').select("g").remove();
-			console.log("world2 : "+ JSON.stringify(world))
+			console.log("world2 : "+ JSON.stringify(world))*/
+			d3.selectAll("svg > g > g ").remove();
+			//document.getElementsByClassName("node").removeAttribute("transform")
+		
 			setMarkers()
+			
 		
 		}
 	}
 	function setMarkers(){
 		service.getLocalisation(value).subscribe( element => {
+			let markers = document.getElementsByClassName("node");
+			if(typeof(markers) == 'undefined' && markers == null){
+				
+				console.log("no elements")
+				
+			}
+			
 			//set data
+			var markerData = []
 			element.forEach(e => {
 				markerData.push({lon: e.lon, lat: e.lat})
 				//tooltip ...
-				console.log(e.name)
+				//console.log(e.name)
 			});
 			console.log("markerData: "+ JSON.stringify(markerData))
 			//draw marker
-			//world.selectAll('world.node').remove()
+
+			//d3.selectAll("svg > g > g").remove();
+			
 			var node = world.selectAll('world.node') 
 				.data(markerData)
 				.enter().append('g').attr('class', 'node')
 				.attr('transform', function(d) {
+					
 					console.log(projection([d.lon, d.lat])[0] + ',' + projection([d.lon, d.lat])[1])
 					return 'translate(' + projection([d.lon, d.lat])[0] + ',' + projection([d.lon, d.lat])[1] + ')'; 
-												});
+				});
 			
-	
+				
 			node.append('path')
 				.attr('d', 'M16,0C9.382,0,4,5.316,4,12.001c0,7,6.001,14.161,10.376,19.194   C14.392,31.215,15.094,32,15.962,32c0.002,0,0.073,0,0.077,0c0.867,0,1.57-0.785,1.586-0.805   c4.377-5.033,10.377-12.193,10.377-19.194C28.002,5.316,22.619,0,16,0z M16.117,29.883c-0.021,0.02-0.082,0.064-0.135,0.098   c-0.01-0.027-0.084-0.086-0.129-0.133C12.188,25.631,6,18.514,6,12.001C6,6.487,10.487,2,16,2c5.516,0,10.002,4.487,10.002,10.002   C26.002,18.514,19.814,25.631,16.117,29.883z')
 				.attr('fillrule', 'evenodd')
@@ -249,8 +264,8 @@ function d33(service, d3map, year, value, filterService, width){
 				.attr('cliprule', 'evenodd')
 				.attr('fill', '#333333');
 				console.log(node)
-	
-	
+				
+				
 		})
 	}
 	function rectangleMarker() {
