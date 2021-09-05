@@ -24,9 +24,9 @@ export class D3Component implements OnInit {
     @HostListener('window:resize', ['$event'])
   onResize(event:any) {
     this.innerWidth = event.target.innerWidth ;
-    console.log("inner : "+this.innerWidth);
-    document.getElementById('my_dataviz')?.style.setProperty("width", this.innerWidth.toString())
-    console.log(document.getElementById('my_dataviz')?.style.width)
+    //console.log("inner : "+this.innerWidth);
+    //document.getElementById('my_dataviz')?.style.setProperty("width", this.innerWidth.toString())
+  //  console.log(document.getElementById('my_dataviz')?.style.width)
   }
 
   ngOnInit(): void {
@@ -40,7 +40,7 @@ export class D3Component implements OnInit {
     this.viewData()
   }
   viewData(){
-   // 
-    d33(this.d3MapService, this.d3map, this.year, this.selectedValue, this.globalsService);
+    let widthMap = this.innerWidth-((this.innerWidth*30)/100)
+    d33(this.d3MapService, this.d3map, this.year, this.selectedValue, this.globalsService, widthMap)
   }
 }
