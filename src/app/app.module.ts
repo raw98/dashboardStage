@@ -5,7 +5,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { Page1Component } from './page1/page1.component';
-import { Page2Component } from './page2/page2.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidebarComponent } from './sidebar/sidebar.component'
@@ -17,8 +16,6 @@ import {MatListModule} from '@angular/material/list'
 import { HighchartsChartModule } from 'highcharts-angular';
 import { Chart1Component } from './chart1/chart1.component';
 import { Chart2Component } from './chart2/chart2.component';
-import { Chart3Component } from './chart3/chart3.component';
-import { Chart4Component } from './chart4/chart4.component';
 import { D3Component } from './d3/d3.component';
 import { PiechartComponent } from './piechart/piechart.component';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
@@ -29,7 +26,6 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 const routes : Routes=[
   {path: '' , component:Page1Component},
   {path: 'page1' , component:Page1Component},
-  {path: 'page2' , component:Page2Component},
   {path: 'navbar' , component:NavbarComponent},
   {path: '404' , component:NotfoundComponent},
   { path : '**' , redirectTo : '404' }
@@ -40,13 +36,10 @@ const routes : Routes=[
     AppComponent,
     NavbarComponent,
     Page1Component,
-    Page2Component,
     NotfoundComponent,
     SidebarComponent,
     Chart1Component,
     Chart2Component,
-    Chart3Component,
-    Chart4Component,
     D3Component,
     PiechartComponent,
     BarChartComponent
