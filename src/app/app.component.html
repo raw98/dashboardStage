@@ -1,3 +1,11 @@
+<nav class="bg-dark d-flex justify-content-around d-md-none">
+    <ul class="navbar-nav mx-md-4">
+        <li class="nav-item mx-4 text-white">
+            {{ currentDate | date:'MMMM d, y, h:mm:ss a z'}}
+        </li>
+    </ul>
+</nav>
+<mat-divider></mat-divider>
 <app-navbar (mode)="changeModeNav($event)" ></app-navbar>
 <mat-drawer-container>
     <mat-drawer mode="side"  [opened]="test" >
