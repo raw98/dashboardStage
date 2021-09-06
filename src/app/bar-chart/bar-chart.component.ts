@@ -26,12 +26,11 @@ year = 2021
 
   ngOnInit(): void {
     this.globalsService.filters.subscribe(filter=>{
+      console.log("filter barchart :::"+ JSON.stringify(filter))
       let continent ="none",
-        region ="none",
-        year = 0,
-        week = 0,
-        day ="none",
-        article ="none",
+        dateDebut= "",
+        dateFin= "",
+        produit ="none",
         client ="none",
         fournisseur ="none",
         magazin ="none";
@@ -40,15 +39,11 @@ year = 2021
         switch(value.filter){
           case 'continent': continent = value.element;
                       break;
-          case 'region': region = value.element;
+          case 'dateDebut': dateDebut = value.element;
                       break;
-          case 'year': year = Number(value.element);
+          case 'dateFin' : dateFin = value.element;
                       break;
-          case 'week': week = Number(value.element);
-                      break;
-          case 'day': day = value.element;
-                      break;
-          case 'article': article = value.element;
+          case 'produit': produit = value.element;
                       break;
           case 'fournisseur': fournisseur = value.element;
                       break;
@@ -119,9 +114,9 @@ year = 2021
     
     })
   }
-  changeYear(event :any){
+ /* changeYear(event :any){
     this.data.splice(0, this.data.length)
     this.year = event.value
     this.viewData()
-  }
+  }*/
 }

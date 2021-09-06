@@ -22,7 +22,12 @@ import { BarChartComponent } from './bar-chart/bar-chart.component';
 import {MatSelectModule} from '@angular/material/select';
 import { HttpClientModule } from '@angular/common/http';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-
+import {MatDatepickerModule, MatDateRangeInput} from '@angular/material/datepicker';
+/*import {MatNativeDateModule} from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';*/
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 const routes : Routes=[
   {path: '' , component:Page1Component},
   {path: 'page1' , component:Page1Component},
@@ -56,7 +61,10 @@ const routes : Routes=[
     HighchartsChartModule,
     MatSelectModule,
     HttpClientModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatDatepickerModule,
+    NgbModule,
+    ReactiveFormsModule
   ],
   providers: [ ],
   bootstrap: [AppComponent]

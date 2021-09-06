@@ -1,15 +1,7 @@
 <div [ngClass]="{'map': true,'fullMap':isOpen}" attr.width="{{innerWidth}}">
     <h1>vente autour du monde</h1>
     <svg  class="my_dataviz mw-100" id="my_dataviz" height="450"></svg>
-    <mat-form-field class="d-flex justify-content-center">
-        <mat-label>Select</mat-label>
-        <mat-select [(value)]="selected" (selectionChange)="changeSelect($event)">
-            <mat-option value="none">None</mat-option>
-            <mat-option value="fournisseur">Fournisseurs</mat-option>
-            <mat-option value="client">Clients</mat-option>
-            <mat-option value="boutique">Boutiques</mat-option>
-        </mat-select>
-      </mat-form-field>
+    
 </div>
 
 <!--style="width: 850vw; max-width:850vw;"-->

@@ -10,10 +10,10 @@ function d33(service, d3map, year, value, filterService, width){
 		data = d3.map()
 		worldmap = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson";
 		//worldpopulation = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world_population.csv";
-		//var markerData = [];
+		var markerData = [];
 		let centered, world;
 		svg.attr("width", width)
-		.style("overflow", "scroll")
+		//.style("overflow", "scroll")
 		/*const element = document.querySelector('.my_dataviz')
 		const mapWidth = element.style.width
 		var width = mapWidth.replace('vw', '');*/
@@ -37,29 +37,24 @@ function d33(service, d3map, year, value, filterService, width){
 			.style("padding-left", "10px")
 			.style("opacity", 0);
 		filterService.filters.subscribe(filter=>{
+			console.log("d3"+ JSON.stringify(filter))
 			let continent ="none",
-				region ="none",
-				year = 0,
-				week = 0,
-				day ="none",
-				article ="none",
+				dateDebut= "",
+				dateFin= "",
+				produit ="none",
 				client ="none",
 				fournisseur ="none",
 				magazin ="none";
 			filter.forEach(value => {
-			
+				
 				switch(value.filter){
 				case 'continent': continent = value.element;
 							break;
-				case 'region': region = value.element;
+				case 'dateDebut': dateDebut = value.element;
 							break;
-				case 'year': year = Number(value.element);
+				case 'dateFin' : dateFin = value.element;
 							break;
-				case 'week': week = Number(value.element);
-							break;
-				case 'day': day = value.element;
-							break;
-				case 'article': article = value.element;
+				case 'produit': produit = value.element;
 							break;
 				case 'fournisseur': fournisseur = value.element;
 							break;
@@ -209,27 +204,27 @@ function d33(service, d3map, year, value, filterService, width){
 	//var markerData= [{lon: 25.2255, lat: 5.325585},{lon: 21.22635, lat: 80.55555}]
 		//marker
 		
-		if (value !== 'none'){
+		//if (value !== 'none'){
 			/*console.log(value)
 			console.log("world1 : "+JSON.stringify(world))
 			world.selectAll('world.node').select("g").remove();
 			console.log("world2 : "+ JSON.stringify(world))*/
-		//	d3.selectAll("svg > g > g ").remove();
+			//d3.selectAll("svg > g > g ").remove();
 			//document.getElementsByClassName("node").removeAttribute("transform")
 		
-			setMarkers()
+			//setMarkers()
 			
 		
-		}
+		
 	}
 	function setMarkers(){
 		service.getLocalisation(value).subscribe( element => {
-			let markers = document.getElementsByClassName("node");
+			/*let markers = document.getElementsByClassName("node");
 			if(typeof(markers) == 'undefined' && markers == null){
 				
 				console.log("no elements")
 				
-			}
+			}*/
 			
 			//set data
 			var markerData = []
@@ -240,9 +235,6 @@ function d33(service, d3map, year, value, filterService, width){
 			});
 			console.log("markerData: "+ JSON.stringify(markerData))
 			//draw marker
-
-			//d3.selectAll("svg > g > g").remove();
-			
 			var node = world.selectAll('world.node') 
 				.data(markerData)
 				.enter().append('g').attr('class', 'node')
@@ -268,15 +260,7 @@ function d33(service, d3map, year, value, filterService, width){
 				
 		})
 	}
-	function rectangleMarker() {
-		world.selectAll("g.marker").selectAll("*").remove();
-		world.selectAll("g.marker").append("rect").attr("height", 10).attr("width", 10)
-		.attr("x", -5)
-		.attr("y", -5)
-		.style("fill", "yellow")
-		.style("stroke", "black")
-		.style("stroke-width", "1px")
-	  }
+	
 	// Zoom functionality
 	/*function click(d) {
 	  var x, y, k;

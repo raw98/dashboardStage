@@ -20,37 +20,31 @@ export class Chart2Component implements OnInit {
   
     ngOnInit() {
         this.globalsService.filters.subscribe(filter=>{
+            console.log("chart2"+ JSON.stringify(filter))
             let continent ="none",
-                region ="none",
-                year = 0,
-                week = 0,
-                day ="none",
-                article ="none",
+                dateDebut= "",
+                dateFin= "",
+                produit ="none",
                 client ="none",
                 fournisseur ="none",
                 magazin ="none";
             filter.forEach(value => {
-        
-            switch(value.filter){
-            case 'continent': continent = value.element;
-                        break;
-            case 'region': region = value.element;
-                        break;
-            case 'year': year = Number(value.element);
-                        break;
-            case 'week': week = Number(value.element);
-                        break;
-            case 'day': day = value.element;
-                        break;
-            case 'article': article = value.element;
-                        break;
-            case 'fournisseur': fournisseur = value.element;
-                        break;
-            case 'client': client = value.element;
-                        break;
-            case 'magazin': magazin = value.element;
-                        break;
-            }
+                switch(value.filter){
+                case 'continent': continent = value.element;
+                            break;
+                case 'dateDebut': dateDebut = value.element;
+                            break;
+                case 'dateFin' : dateFin = value.element;
+                            break;
+                case 'produit': produit = value.element;
+                            break;
+                case 'fournisseur': fournisseur = value.element;
+                            break;
+                case 'client': client = value.element;
+                            break;
+                case 'magazin': magazin = value.element;
+                            break;
+                }
             })
             //this.viewData(continent, region, year, week, day, article, client, fournisseur, magazin)
             this.viewData(this.prod)
@@ -176,10 +170,6 @@ export class Chart2Component implements OnInit {
             
         })
     }
-    changeProd(event : any){
-        this.prod = event.value
-        this.selected = event.value
-        this.viewData(this.prod)
-    }
+ 
 
 }

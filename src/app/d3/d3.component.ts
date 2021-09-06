@@ -33,12 +33,7 @@ export class D3Component implements OnInit {
     
     this.viewData()
   }
-  changeSelect(event: any){
-    console.log(this.selectedValue)
-
-    this.selectedValue = event.value
-    this.viewData()
-  }
+  
   viewData(){
     let widthMap = this.innerWidth-((this.innerWidth*30)/100)
     d33(this.d3MapService, this.d3map, this.year, this.selectedValue, this.globalsService, widthMap)
