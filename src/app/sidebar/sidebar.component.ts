@@ -16,7 +16,7 @@ export class SidebarComponent implements AfterViewInit, OnInit {
   panelOpenState = false;
   currentYear: number = new Date().getFullYear();
   continents = ["All", "Asia", "Africa", "Europe", "America", "Oceania"]
-  yesars :number[] = []
+  years :number[] = []
   days = [];
   products= ["All", "Article1", "Article2"]
   clients = ["All", "Client1", "Client2"]
