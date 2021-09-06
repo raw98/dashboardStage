@@ -16,7 +16,7 @@ export class SidebarComponent implements AfterViewInit, OnInit {
   currentYear: number = new Date().getFullYear();
   continents = ["All", "Asia", "Africa", "Europe", "America", "Oceania"]
   years :number[] = []
-  days = [];
+  //days = [];
   articles= ["All", "Article1", "Article2"]
   days = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samdi", "Dimanche"]
   products= ["All", "Article1", "Article2"]

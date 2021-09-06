@@ -20,7 +20,7 @@ export class PiechartComponent implements OnInit {
 
   ngOnInit(): void {
     //console.log("filters globals page1: "+JSON.stringify(this.globalsService.filters))
-    this.globalsService.filters.subscribe(filter=>{
+   /* this.globalsService.filters.subscribe(filter=>{
 
       let continent ="none",
         region ="none",
@@ -54,11 +54,10 @@ export class PiechartComponent implements OnInit {
                       break;
         }
       })
-      //this.viewData(continent, region, year, week, day, article, client, fournisseur, magazin)
+      //this.viewData(continent, region, year, week, day, article, client, fournisseur, magazin)*/
       
       this.viewData() 
-    }
-    ) 
+//    } ) 
     
   }
   

@@ -214,7 +214,7 @@ function d33(service, d3map, year, value, filterService, width){
 			console.log("world1 : "+JSON.stringify(world))
 			world.selectAll('world.node').select("g").remove();
 			console.log("world2 : "+ JSON.stringify(world))*/
-			d3.selectAll("svg > g > g ").remove();
+		//	d3.selectAll("svg > g > g ").remove();
 			//document.getElementsByClassName("node").removeAttribute("transform")
 		
 			setMarkers()

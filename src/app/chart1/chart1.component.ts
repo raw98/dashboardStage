@@ -19,7 +19,7 @@ export class Chart1Component implements OnInit {
     constructor(public chart1Service : Chart1Service, public globalsService: GlobalsService) { }
   
     ngOnInit() {
-        this.globalsService.filters.subscribe(filter=>{
+            this.globalsService.filters.subscribe(filter=>{
             let continent ="none",
                 region ="none",
                 year = 0,
@@ -54,7 +54,7 @@ export class Chart1Component implements OnInit {
             })
             //this.viewData(continent, region, year, week, day, article, client, fournisseur, magazin)
             this.viewData()
-        })
+       })
         
       }
     treatment(data :any, text: string, color: string){
@@ -137,6 +137,6 @@ export class Chart1Component implements OnInit {
                 color: chartColor
             }]}
 
-           // console.log("text & color & values:"+ text+ "___"+ chartColor+ "___"+values)
+           //console.log("text & color & values:"+ text+ "___"+ chartColor+ "___"+values)
     }
 }

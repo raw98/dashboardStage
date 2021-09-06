@@ -79,7 +79,9 @@ const caSchema = new mongoose.Schema({
     _id : mongoose.Types.ObjectId,
     type    :String,
     year    :Number,
-    chiffre :Number
+    chiffre :Number,
+    continent:String,
+    produit : String
    });
 //compiling shemas
 const Ca = mongoose.model('Ca', caSchema,"ca");
@@ -266,6 +268,37 @@ app.get('/chiffre/:type', (request,res) => {
 
 
     Chiffre.find({ type : type} , (err,data)=>{
+        if(err){
+            res.send(err);
+        }
+        res.json(data);
+    }
+
+    );
+});
+//find by type de chiffre type de produit
+app.get('/chiffre/:type/prod/:prod', (request,res) => {
+    var type=request.params.type;
+    var prod=request.params.prod;
+
+
+    Chiffre.find({ type : type , produit : prod} , (err,data)=>{
+        if(err){
+            res.send(err);
+        }
+        res.json(data);
+    }
+
+    );
+});
+
+//find by type de chiffre par continent
+app.get('/chiffre/:type/:con', (request,res) => {
+    var type=request.params.type;
+    var con=request.params.con;
+
+
+    Chiffre.find({ type : type , continent : con} , (err,data)=>{
         if(err){
             res.send(err);
         }
