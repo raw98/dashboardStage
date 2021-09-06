@@ -1,8 +1,9 @@
 import { AfterViewInit, Component, OnInit} from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { GlobalsService } from '../services/globals.service';
 interface typeFilter{
   filter: string,
-  element: string
+  element: any
 }
 @Component({
   selector: 'app-sidebar',
@@ -10,35 +11,36 @@ interface typeFilter{
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements AfterViewInit, OnInit {
-  
+  filters = ["continent", "dateDebut", "dateFin", "produit", "client", "fournisseur", "magazin"]
 
   panelOpenState = false;
   currentYear: number = new Date().getFullYear();
   continents = ["All", "Asia", "Africa", "Europe", "America", "Oceania"]
   years :number[] = []
   days = [];
-  articles= ["All", "Article1", "Article2"]
-  days = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samdi", "Dimanche"]
   products= ["All", "Article1", "Article2"]
   clients = ["All", "Client1", "Client2"]
   magazins = ["All", "Magazin1", "Magazin2"]
   fournisseurs = ["All", "Fournisseur1", "Fournisseur2"]
 
-  selectedFilter3 !:string
-  selectedFilter3Product ="All"
-  selectedFilter3Client = "All"
-  selectedFilter3Fournisseur = "All"
-  selectedFilter3Magazin = "All"
-  
-  selectedFilter2 = "year"
-  selectedFilter2Year  = this.currentYear.toString()
-  selectedFilter2Week !: string
-  selectedFilter2Day !: string
+  selectedProduct = "All"
+  selectedClient !: string
+  selectedFournisseur !: string
+  selectedMagazin !: string
+  selectedContinent = "All"
+
   numbers:number[];
-  selectedFilter1 = "continent"
-  selectedFilter1Continent = "All"
-  selectedFilter1Region !:string
-  constructor(public globalsService : GlobalsService ) {
+  filterForm = new FormGroup({
+    dateDebut: new FormControl(''),
+    dateFin: new FormControl(''),
+    continent: new FormControl(''),
+    region: new FormControl(''),
+    produit: new FormControl(''),
+    client: new FormControl(''),
+    fournisseur: new FormControl(''),
+    magazin: new FormControl('')
+  });
+  constructor(public globalsService : GlobalsService, private formBuilder: FormBuilder ) {
     this.numbers=Array(31).fill(1).map((x, i) => i + 1);
   }
   ngAfterViewInit(): void {
@@ -56,94 +58,59 @@ export class SidebarComponent implements AfterViewInit, OnInit {
   }
  
   setFilters(){
+    console.log("filter global inial: "+ JSON.stringify(this.globalsService.getFilters()))
     
+    console.log(this.filterForm.getRawValue())
     let filterList : typeFilter[] = []
-    let selectedFilter1Element !: string
-    console.log ("filter1 ::: "+this.selectedFilter1)
-    if(this.selectedFilter1 === "continent"){
-      console.log("continent")
-      filterList.push({filter: this.selectedFilter1, element: this.selectedFilter1Continent})
-      filterList.push({filter: "region", element: "none"})
-    }
-    else{
-      filterList.push({filter: "continent", element: this.selectedFilter1Continent})
-      filterList.push({filter: this.selectedFilter1, element: this.selectedFilter1Region})
-    }
-    let selectedFilter2Element !:string
-    switch (this.selectedFilter2){
-      case 'year':
-        selectedFilter2Element = this.selectedFilter2Year;
-        break;
-      case 'week':
-        selectedFilter2Element = this.selectedFilter2Week;
-        break;
-      case 'day':
-        selectedFilter2Element = this.selectedFilter2Day;
-        break;
-    }
-    filterList.push({filter: this.selectedFilter2, element: selectedFilter2Element})
-    let strFilter3 = JSON.stringify(this.selectedFilter3).slice(1, JSON.stringify(this.selectedFilter3).length-1)
-    let tabFilter3 = strFilter3.split(",")
-    tabFilter3.forEach(e => {
-      console.log(e.slice(1, e.length-1))
-      let selectedFilter = e.slice(1, e.length-1);
-      let selectedFilter3Element !: string
-      switch(selectedFilter){
-        case 'product': selectedFilter3Element = this.selectedFilter3Product
-                        break;
-        case 'magazin': selectedFilter3Element = this.selectedFilter3Magazin
-                        break;
-        case 'fournisseur': selectedFilter3Element = this.selectedFilter3Fournisseur
-                            break;
-        case 'client' : selectedFilter3Element = this.selectedFilter3Client
-                        break;
+
+    this.filters.forEach(e => {
+     
+      if (this.filterForm.get(e)?.value === ""){
+        filterList.push({filter: e, element: "none"})
       }
-      filterList.push({filter: selectedFilter, element: selectedFilter3Element})
+      else{
+        if (e === "dateDebut" || e === "dateFin"){
+          let dateValue = this.filterForm.get(e)?.value
+          let dateString = (dateValue["year"] + '-' + + dateValue["month"] + '-' + dateValue["day"]).toString()
+          let date = new Date(dateString)
+
+          console.log("format date:"+ date)
+          filterList.push({filter: e, element: date})
+          
+        }
+        else{
+        filterList.push({filter: e, element: this.filterForm.get(e)?.value})
+        }
+      }
     })
-   
+  
     this.globalsService.setFilters(filterList)
-    let newVar= this.globalsService.getFilters()
-    console.log("filters globals after set: "+ JSON.stringify("filterlist: "+JSON.stringify(newVar)))
-  }
-  onFilter1Change(val: string){
-    this.selectedFilter1 = val;
+   // let newVar= this.globalsService.getFilters()
+    //console.log("filters globals after set: "+ JSON.stringify("filterlist: "+JSON.stringify(newVar)))
   }
   onContinentChange(event: any){
-    this.selectedFilter1Continent = event.value
-  }
-  onRegionChange(event: any){
-    this.selectedFilter1Region = event.value
+    this.selectedContinent = event.value
   }
 
-  public onFilter2Change(val: string) {
-    this.selectedFilter2 = val;
-  }
-  onYearChange(event: any){
-    this.selectedFilter2Year = event.value
-    console.log(this.selectedFilter2Year)
-  }
-  onWeekChange(event: any){
-    this.selectedFilter2Week = event.value
-  }
-  onDayChange(event: any){
-    this.selectedFilter2Day = event.value
-  }
-
-  onFilter3Change(val: string){
-    this.selectedFilter3 = val;
-  }
+/*
+  public onDateChange(event: any) {
+    let date=  event.target.value;
+    console.log(this.selectedDate)
+    console.log(event.target.value)
+  }*/
+ 
+ 
   onClientChange(event: any){
-    this.selectedFilter3Client = event.value
+    this.selectedClient = event.value
   }
   onFournisseurChange(event: any){
-    this.selectedFilter3Fournisseur = event.value
+    this.selectedFournisseur = event.value
   }
   onProductChange(event: any){
-    this.selectedFilter3Product = event.value
+    this.selectedProduct = event.value
   }
   onMagazinChange(event: any){
-    this.selectedFilter3Magazin = event.value
+    this.selectedMagazin = event.value
   }
-
  
 }

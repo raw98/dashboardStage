@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 
 interface typeFilter{
   filter: string,
-  element: string
+  element: any
 }
 @Injectable({
   providedIn: 'root'
@@ -11,10 +11,7 @@ interface typeFilter{
 export class GlobalsService {
 
   private messageSource: BehaviorSubject<typeFilter[]> = new BehaviorSubject(
-    [{filter: "continent", element: "All"},
-    {filter: "region", element: "none"},
-    {filter: "year", element: new Date().getFullYear().toString()},
-    {filter: "article", element: "All"}]
+    [{filter: "continent", element: "All"}]
   ); 
 
    

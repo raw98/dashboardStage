@@ -5,32 +5,3 @@
     </div>
    
 </figure>
-<form>
-    <div class="row">
-        <div class="col-6 sm-12 justify-content-around d-flex">
-            <mat-form-field>
-                <mat-label>Select a year</mat-label>
-                <mat-select [(value)]="selectedYear">
-                  <mat-option value="2020">2020</mat-option>
-                  <mat-option value="2021">2021</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <br>
-        <div class="col-5  sm-12 justify-content-around d-flex">
-            <mat-form-field>
-                <mat-label>Select a product</mat-label>
-                <mat-select [(value)]="selectedProd">
-                  <mat-option value="prod1">prod1</mat-option>
-                  <mat-option value="prod2">prod2</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <br>
-        <div class="col-12 justify-content-around d-flex">
-            <div class="mb-3 justify-content-around d-flex">
-                <button class="btn rounded bgBtn" type="button" (click)="filter()">Filtrer</button>
-            </div>
-        </div>
-    </div>
-</form>

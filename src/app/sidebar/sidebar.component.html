@@ -1,45 +1,101 @@
 <mat-card>
-    <img mat-card-image src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIE0lfYfzhPrYOhVlIROm-CbkCKJN9r8HZ6CFLTiXuwLe8lCbLR2mACbBArxjOjdRIvBg&usqp=CAU" alt="Photo">
-    <mat-card-header>
-        <mat-card-title>Foulen</mat-card-title>
-        <mat-card-subtitle>foulen@foulen.com</mat-card-subtitle>
-      </mat-card-header>
+  <img mat-card-image src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIE0lfYfzhPrYOhVlIROm-CbkCKJN9r8HZ6CFLTiXuwLe8lCbLR2mACbBArxjOjdRIvBg&usqp=CAU" alt="Photo">
+  <mat-card-header>
+      <mat-card-title>Foulen</mat-card-title>
+      <mat-card-subtitle>foulen@foulen.com</mat-card-subtitle>
+    </mat-card-header>
 </mat-card>
 <mat-divider></mat-divider>
 
 <div matSubheader id="filtrer">Filtrer par :</div>
-<div class="d-flex justify-content-center mb-3">
-  <mat-button-toggle-group multiple name="date" aria-label="Font Style" class="d-flex flex-column" #group1="matButtonToggleGroup" [value]="selectedFilter1" (change)="onFilter1Change(group1.value)" >
-    <mat-button-toggle value="continent" class=" ">
+<div class="container-fluid">
+  <form class="d-flex flex-column" [formGroup]="filterForm">
+    
+    <div class="mb-3">
+      <label for="datedebut">Date de debut</label>
+      <form class="form-inline">
+        <div class="form-group">
+          <div class="input-group">
+            
+            <input  placeholder="Date de début" type="date" class="form-control rounded"
+                   name="dp" ngbDatepicker #d="ngbDatepicker"
+                   #dateDebut formControlName="dateDebut">
+            <div class="input-group-append">
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="mb-3">
+      <label for="dateFin">Date de fin</label>
+      <form class="form-inline">
+        <div class="form-group">
+          <div class="input-group">
+            
+            <input  placeholder="Date de fin" type="date" class="form-control rounded"
+                   name="dp" ngbDatepicker #d="ngbDatepicker"
+                   #dateFin formControlName="dateFin" value="2021-09-01">
+            <div class="input-group-append">
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="mb-3">
       <mat-form-field>
         <mat-label>Continent</mat-label>
-        <mat-select [(value)]="selectedFilter1Continent" (change)="onContinentChange($event)">
+        <mat-select [(value)]="selectedContinent" (change)="onContinentChange($event)" formControlName="continent">
           <mat-option *ngFor="let element of continents" [value]="element">{{element}}</mat-option>
         </mat-select>
       </mat-form-field>
-    </mat-button-toggle>
-    <mat-button-toggle value="region" class=" ">
-      <mat-form-field>
-        <mat-label>Region</mat-label>
-        <mat-select [(value)]="selectedFilter1Region" (change)="onRegionChange($event)">
-          <mat-option value="reg1">reg1</mat-option>
-          <mat-option value="reg2">reg2</mat-option>
+
+    </div>
+
+
+    <div class="mb-3">
+      <mat-form-field >
+        <mat-label>Produit</mat-label>
+        <mat-select id="formFilter1" [(value)]= "selectedProduct" (change)="onProductChange($event)" formControlName="produit">
+          <mat-option *ngFor= "let element of products" [value]="element">{{element}}</mat-option>
         </mat-select>
       </mat-form-field>
-    </mat-button-toggle>
-    <!--mat-button-toggle value="ville" class=" ">
-        <mat-form-field>
-          <mat-label>Ville</mat-label>
-          <mat-select>
-            <mat-option value="Lun">Lundi</mat-option>
-            
-          </mat-select>
-        </mat-form-field>
-      </mat-button-toggle--><!--filtre par jour-->
-  </mat-button-toggle-group>
-</div><!--filtre 1-->
+    </div>
 
-<div matSubheader id="filtrer">Filtrer par :</div>
+    <div class="mb-3">
+      <mat-form-field >
+        <mat-label>Client</mat-label>
+        <mat-select [(value)]= "selectedClient" (change)="onClientChange($event)" formControlName="client">
+          <mat-option *ngFor= "let element of clients" [value]="element">{{element}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="mb-3">
+      <mat-form-field >
+        <mat-label>Fournisseur</mat-label>
+        <mat-select [(value)]= "selectedFournisseur" (change)="onFournisseurChange($event)" formControlName="fournisseur">
+          <mat-option *ngFor= "let element of fournisseurs" [value]="element">{{element}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="mb-3">
+      <mat-form-field >
+        <mat-label>Magazin</mat-label>
+        <mat-select [(value)]= "selectedMagazin" (change)="onMagazinChange($event)" formControlName="magazin">
+          <mat-option *ngFor= "let element of magazins" [value]="element">{{element}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="mb-3 justify-content-around d-flex">
+      <button class="btn rounded bgBtn" type="submit" (click)="setFilters()">Filtrer</button>
+    </div>
+  </form>
+</div>
+
+<!--div matSubheader id="filtrer">Filtrer par :</div>
 <div class="d-flex justify-content-center mb-3">
   <mat-button-toggle-group name="date" #group2="matButtonToggleGroup" aria-label="Font Style" class="d-flex flex-column" [value]="selectedFilter2" (change)="onFilter2Change(group2.value)" >
     <mat-button-toggle value="year">
@@ -79,53 +135,8 @@
               <mat-option *ngFor= "let number of numbers" [value]="number">{{number}}</mat-option>
             </mat-select>
           </mat-form-field>
-      </mat-button-toggle><!--filtre par jour-->
+      </mat-button-toggle>
   </mat-button-toggle-group>
-</div><!--filtre 2-->
+</div-->
 
 
-
-<div matSubheader id="filtrer">Filtrer par :</div>
-<div class="d-flex justify-content-center mb-3">
-  <mat-button-toggle-group multiple name="date" aria-label="Font Style" class="d-flex flex-column"  #group3="matButtonToggleGroup" [value]="selectedFilter3" (change)="onFilter3Change(group3.value)">
-    <mat-button-toggle value="article" class=" ">
-      <mat-form-field >
-        <mat-label>Produit</mat-label>
-        <mat-select id="formFilter1" [(value)]= "selectedFilter3Product" (change)="onProductChange($event)">
-          <mat-option *ngFor= "let element of products" [value]="element">{{element}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-button-toggle>
-    <mat-button-toggle value="client" >
-      <mat-form-field >
-        <mat-label>Client</mat-label>
-        <mat-select [(value)]= "selectedFilter3Client" (change)="onClientChange($event)">
-          <mat-option *ngFor= "let element of clients" [value]="element">{{element}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-button-toggle>
-    <mat-button-toggle value="fournisseur" class="">
-      <mat-form-field >
-        <mat-label>Fournisseur</mat-label>
-        <mat-select [(value)]= "selectedFilter3Fournisseur" (change)="onFournisseurChange($event)">
-          <mat-option *ngFor= "let element of fournisseurs" [value]="element">{{element}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-button-toggle>
-    <mat-button-toggle value="magazin" class=" ">
-      <mat-form-field >
-        <mat-label>Magazin</mat-label>
-        <mat-select [(value)]= "selectedFilter3Magazin" (change)="onMagazinChange($event)">
-          <mat-option *ngFor= "let element of magazins" [value]="element">{{element}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-button-toggle>
-  </mat-button-toggle-group>
-</div><!--filtre 3-->
-
-<mat-divider></mat-divider>
-<br>
-
-  <div class="mb-3 justify-content-around d-flex">
-    <button class="btn rounded bgBtn" type="button" (click)="setFilters()">Filtrer</button>
-  </div>

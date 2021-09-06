@@ -18,7 +18,7 @@ export class WorldMapService {
   }
 //value : fournisseur, client, boutique
   getLocalisation(value: string):Observable<Localisation[]>{
-    return this.http.get<Localisation[]>(`${this.URL}/localisation/${value}`);
+    return this.http.get<Localisation[]>(`${this.baseURL}/localisation/${value}`);
   }
 
 }
