@@ -84,7 +84,7 @@
       <mat-form-field >
         <mat-label>Magazin</mat-label>
         <mat-select [(value)]= "selectedMagazin" (change)="onMagazinChange($event)" formControlName="magazin">
-          <mat-option *ngFor= "let element of magazins" [value]="element">{{element}}</mat-option>
+          <mat-option *ngFor= "let element of magasins" [value]="element">{{element}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>

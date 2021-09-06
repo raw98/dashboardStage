@@ -30,6 +30,7 @@
     "@nativescript/angular": "~10.1.0",
     "@nativescript/core": "~7.0.0",
     "@nativescript/theme": "~2.5.0",
+    "@ng-bootstrap/ng-bootstrap": "^10.0.0",
     "@types/jquery": "^3.5.6",
     "bootstrap": "^5.1.0",
     "d3": "^7.0.1",
