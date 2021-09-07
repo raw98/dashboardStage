@@ -11,7 +11,7 @@ interface typeFilter{
 export class GlobalsService {
 
   private messageSource: BehaviorSubject<typeFilter[]> = new BehaviorSubject(
-    [{filter: "continent", element: "All"}]
+    [{filter: "continent", element: "All"},{filter: "produit", element: "All"},{"filter":"dateDebut","element":"All"},{"filter":"dateFin","element":"All"}]
   ); 
 
    

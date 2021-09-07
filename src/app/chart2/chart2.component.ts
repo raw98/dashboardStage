@@ -12,7 +12,7 @@ export class Chart2Component implements OnInit {
     selected ="prod1"
     Highcharts = Highcharts;
     //les catégories doivent etre initialise par les jours de la semaine actuelle lors de l'alimentaion de la base
-    categories = ['06-09-2021', '07-09-2021', '08-09-2021', '09-09-2021', '10-09-2021', '11-09-2021', '12-09-2021']
+    categories = ['2021-09-01', '2021-09-02', '2021-09-03', '2021-09-04', '2021-09-05','2021-09-06','2021-09-07','2021-09-08']//pour tester on a choisis d'afficher 5 dates
     chartOptions !: {};
     
     prod = "prod1"
@@ -46,14 +46,54 @@ export class Chart2Component implements OnInit {
                             break;
                 }
             })
-            //this.viewData(continent, region, year, week, day, article, client, fournisseur, magazin)
-            this.viewData(this.prod)
+            if((produit.localeCompare("All") == 0 || produit.localeCompare("none") ==0 )&&
+            (dateDebut.localeCompare("All") == 0   || dateDebut.localeCompare("none") ==0 )&&
+            (dateFin.localeCompare("All") == 0   || dateFin.localeCompare("none") ==0 )&& 
+            (continent.localeCompare("All") == 0   || continent.localeCompare("none") ==0 )
+            ){  
+                this.viewData(this.prod);//par defaut
+            }
+            else if(produit.localeCompare("All") !=0 && produit.localeCompare("none") !=0 &&
+            dateDebut.localeCompare("none") ==0 &&
+            dateFin.localeCompare("none") ==0 && continent.localeCompare("none") ==0 //si seulement le produit est séléctionné
+            ){
+                this.viewData(produit);
+            }
+            else if(produit.localeCompare("none") !=0 && dateDebut.localeCompare("none") !=0 &&
+            dateFin.localeCompare("none") !=0 && continent.localeCompare("none")==0//si seulement le produit est séléctionné avec les dates
+            ){  
+                this.viewData(produit,dateDebut,dateFin);
+            }
+            else if(produit.localeCompare("none") !=0 &&
+            dateDebut.localeCompare("none") !=0 &&
+            dateFin.localeCompare("none") !=0  && continent.localeCompare("none")!=0//si seulement le produit est séléctionné avec les dates
+            ){ 
+                this.viewData(produit,dateDebut,dateFin,continent);
+            }
+
+
+            else if((produit.localeCompare("All") == 0 || produit.localeCompare("none") ==0 )&&
+            dateDebut.localeCompare("none") !=0 &&
+            dateFin.localeCompare("none") !=0 //si seulementes dates sont selectionnés par defaut afficher les données de prod1
+            ){  
+                this.viewData(this.prod,dateDebut,dateFin);
+            }
+            else if((produit.localeCompare("All") == 0 || produit.localeCompare("none") ==0 )&&
+           ( dateDebut.localeCompare("All") ==0 || dateDebut.localeCompare("none") ==0 )&&
+            (dateFin.localeCompare("none") ==0 || dateDebut.localeCompare("none") ==0)&&
+            (continent.localeCompare("none")!=0 &&continent.localeCompare("All")!=0)//si seulement le contient est selectionné
+            ){  
+                this.viewData(this.prod,this.categories[0],this.categories[7],continent);
+            }
+            else{
+            this.viewData(this.prod)}
         })
         
         
       }
-    viewData(prod : string){
-        this.chart2Service.getData(this.prod).subscribe(d => {
+      
+    viewData(prod : string, dateDeb : string=this.categories[0] , dateFin : string=this.categories[7],continent : string = "All"){
+        this.chart2Service.getDataByDate(prod,dateDeb,dateFin).subscribe(d => {
             
             let asiaContinent :Map<string, number>= new Map<string, number>([["Lun", 0],["Mar", 0],["Mer", 0],["Jeu", 0],["Ven", 0],["Sam", 0],["Dim", 0]])
             let africaContinent = new Map<string, number>([["Lun", 0],["Mar", 0],["Mer", 0],["Jeu", 0],["Ven", 0],["Sam", 0],["Dim", 0]])
@@ -151,25 +191,54 @@ export class Chart2Component implements OnInit {
                         }
                     }
                 },
-                series: [{
-                    name: 'Asia',
-                    data: asia
-                }, {
-                    name: 'Africa',
-                    data: africa
-                }, {
-                    name: 'Europe',
-                    data: europe
-                }, {
-                    name: 'America',
-                    data: america
-                }, {
-                    name: 'Oceania',
-                    data: oceania
-                }]}
+                series:  this.getSerie(continent,asia,africa,europe,america,oceania) }
             
         })
     }
- 
+getSerie(continent : string , asia :any , africa:any , europe:any , america:any , oceania:any){
+   let serie1:{name:string , data :any}[]=[{
+        name: 'Asia',
+        data: asia
+    }, {
+        name: 'Africa',
+        data: africa
+    }, {
+        name: 'Europe',
+        data: europe
+    }, {
+        name: 'America',
+        data: america
+    }, {
+        name: 'Oceania',
+        data: oceania
+    }];
+    if(continent.localeCompare("All")==0  || continent.localeCompare("Africa")==0){
+        serie1=serie1.slice(1,2);
+        console.log(continent + serie1)
+        return serie1;
+    }
+    else if(continent.localeCompare("Asia")==0){
+        serie1=serie1.slice(0,1);
+        console.log(continent + serie1)
+        return serie1;
+    }
+    else if(continent.localeCompare("Europe")==0){
+        serie1=serie1.slice(2,3);
+        console.log(continent + serie1)
 
+        return serie1;
+    }
+    else if(continent.localeCompare("America")==0){
+        serie1=serie1.slice(3,4);
+        console.log(continent + serie1)
+
+        return serie1;
+    }
+    serie1=serie1.slice(4,5);
+    console.log(continent + serie1)
+
+    return serie1;
+    
+}
+ 
 }

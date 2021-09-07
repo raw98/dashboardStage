@@ -14,4 +14,7 @@ export class Chart2Service {
   getData(prod : string):Observable<Chart2[]>{
     return this.http.get<Chart2[]>(`${this.baseURL}/${prod}`);
   }
+  getDataByDate(prod : string, dateDeb : string , dateFin : string):Observable<Chart2[]>{
+    return this.http.get<Chart2[]>(`${this.baseURL}/${prod}/${dateDeb}/${dateFin}`);
+  }
 }

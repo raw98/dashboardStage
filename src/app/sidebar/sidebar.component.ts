@@ -18,7 +18,7 @@ export class SidebarComponent implements AfterViewInit, OnInit {
   continents = ["All", "Asia", "Africa", "Europe", "America", "Oceania"]
   years :number[] = []
   days = [];
-  products= ["All", "Article1", "Article2"]
+  products= ["All", "prod1", "prod2"]
   clients = ["All", "Client1", "Client2"]
   magasins = ["All", "Magazin1", "Magazin2"]
   fournisseurs = ["All", "Fournisseur1", "Fournisseur2"]
@@ -71,8 +71,22 @@ export class SidebarComponent implements AfterViewInit, OnInit {
       else{
         if (e === "dateDebut" || e === "dateFin"){
           let dateValue = this.filterForm.get(e)?.value
-          let dateString = (dateValue["year"] + '-' + + dateValue["month"] + '-' + dateValue["day"]).toString()
-          let date = new Date(dateString)
+          let dateString = (dateValue["year"] ).toString();
+
+          if(dateValue["month"] <10){
+            dateString= dateString +'-' +"0"+dateValue["month"] ;
+          }
+          else{
+            dateString= dateString +'-'+dateValue["month"] ;
+          }
+          if(dateValue["day"] <10){
+            dateString= dateString +'-' +"0"+dateValue["day"] ;
+          }
+          else{
+            dateString= dateString +'-'+dateValue["day"] ;
+          }
+
+          let date = dateString
 
           console.log("format date:"+ date)
           filterList.push({filter: e, element: date})

@@ -2,6 +2,8 @@ var express = require('express');
 var mongoose = require('mongoose');
 var bodyparser = require('body-parser');
 var cors = require('cors');
+var moment = require('moment');
+
 
 var app = express();
 
@@ -46,7 +48,7 @@ const caSchema = new mongoose.Schema({
    {
     _id : mongoose.Types.ObjectId,
      prod : String,
-    jour : String,
+    jour : Date,
     vente : Number,
     continent :String
    });
@@ -154,7 +156,7 @@ app.get('/prod', (req,res) => {
 
     );
 });
-//find by year
+//find by id
 app.get('/prod:id', (request,res) => {
     var id=request.params.id;
     Produit.find({ prod : "prod"+id} , (err,data)=>{
@@ -164,6 +166,21 @@ app.get('/prod:id', (request,res) => {
         res.json(data);
     }
     );
+});
+//find by id and date
+app.get('/prod:id/:dateDeb/:dateFin', (request,res) => {
+    var id=request.params.id;
+    var dateDeb=request.params.dateDeb;
+    var dateFin=request.params.dateFin;
+
+    Produit.find({prod : "prod"+id ,jour: {$gte: new Date(dateDeb), 
+                         $lt: new Date(dateFin)}}
+     , (err,data)=>{
+        if(err){
+            res.send(err);
+        }
+        res.json(data);
+       }   );
 });
 
 ///////////////////////////////////Vente== piechart - affichage du pourcentage vente par annee par produit/////////////////////////////////////

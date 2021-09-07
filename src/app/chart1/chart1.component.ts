@@ -22,8 +22,8 @@ export class Chart1Component implements OnInit {
         this.globalsService.filters.subscribe(filter=>{
             console.log("filter chart1:::"+ JSON.stringify(filter))
             let continent ="none",
-                dateDebut= "",
-                dateFin= "",
+                dateDebut= "none",
+                dateFin= "none",
                 produit ="none",
                 client ="none",
                 fournisseur ="none",
@@ -47,8 +47,7 @@ export class Chart1Component implements OnInit {
                             break;
                 }
             })
-            //this.viewData(continent, region, year, week, day, article, client, fournisseur, magazin)
-            this.viewData()
+            this.viewData(continent,produit);
        })
         
       }
@@ -63,30 +62,52 @@ export class Chart1Component implements OnInit {
         })
         this.setData(text, color, values);
     }
-    viewData(){
+    viewData(continent : string,produit: string){
        
         switch(this.variable){
             case "chiffre_affaire": {
+                const text="chiffre d'affire";
+                const color="#e0a800";
+                if( continent.localeCompare("All")!= 0 && continent.localeCompare("none") !=0){
+                    this.chart1Service.getAffaireByContinent(continent.toLowerCase()).subscribe(chiffre=>{
+                        this.treatment(chiffre,text +" dans " +continent, color);
+                        console.log("by cont"+continent);
+                    })
+                }
+                else{
                 this.chart1Service.get("affaire").subscribe(chiffre => {
-                    this.treatment(chiffre, "chiffre d'affaire", "#e0a800")
-                })
-                break
-            }
+                    this.treatment(chiffre,text,color);
+
+                })}
+                
+            }break;
             case "produit": {
+                const text = "Produits vendus",
+                color = "rgb(247, 163, 92)";
+                if(produit.localeCompare("All") !=0 && produit.localeCompare("none") !=0){
+                    console.log(produit);
+                    this.chart1Service.getProduitByTypeProduit(produit.toLowerCase()).subscribe(chiffre=>{
+                        this.treatment(chiffre,produit+" vendus", color);
+                    })
+                }else{
                 this.chart1Service.get("produit").subscribe(produit => {
-                    
-                    const text = "Produits vendus",
-                    color = "rgb(247, 163, 92)"
                     this.treatment(produit, text, color)
-                })
+                })}
                 break
             }
             case "client": {
+                const text = "Nbr de clients",
+                color = "#20c997"
+                if( continent.localeCompare("All")!= 0 && continent.localeCompare("none") !=0){
+                    this.chart1Service.getClientByContinent(continent.toLowerCase()).subscribe(chiffre=>{
+                        this.treatment(chiffre, text +" dans " +continent,color);
+                        console.log("by cont"+continent);
+                    })
+                }
+                else{
                 this.chart1Service.get("client").subscribe(client => {
-                    const text = "Nombre des clients",
-                    color = "#20c997"
                     this.treatment(client, text, color)
-                })
+                })}
                 break
             }
         }
@@ -98,7 +119,9 @@ export class Chart1Component implements OnInit {
                 type: 'area'
             },
             title: {
-                text: text
+                text: text,
+                style :{
+                    fontSize: '16px' }
             },
             xAxis: {
                 categories: this.categories,
@@ -109,7 +132,7 @@ export class Chart1Component implements OnInit {
             },
             yAxis: {
                 title: {
-                    text: this.variable
+                    text: this.variable,
                 }
             },
             tooltip: {
